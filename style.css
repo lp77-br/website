@@ -327,12 +327,14 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   font-size: 15px;
   line-height: 1.7;
   color: var(--text-2);
+  word-wrap: break-word;
 }
 
 .report-container h1 {
   font-size: 32px;
   margin-bottom: 12px;
   color: var(--text);
+  line-height: 1.2;
 }
 
 .report-container h2 {
@@ -347,6 +349,7 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   font-size: 16px;
   margin: 32px 0 12px;
   color: var(--text);
+  line-height: 1.3;
 }
 
 .report-container p {
@@ -368,6 +371,7 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   border-radius: var(--r-xs);
   font-size: 13px;
   color: var(--accent-2);
+  word-break: break-word;
 }
 
 .report-container pre {
@@ -377,6 +381,7 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   border-radius: var(--r);
   overflow-x: auto;
   margin-bottom: 20px;
+  max-width: 100%;
 }
 
 .report-container pre code {
@@ -385,10 +390,14 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   padding: 0;
   color: var(--text);
   font-size: 13px;
+  white-space: pre;
 }
 
 .report-container table {
+  display: block;
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   margin-bottom: 24px;
   font-size: 14px;
@@ -398,6 +407,7 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   padding: 10px 14px;
   border: 1px solid var(--border);
   text-align: left;
+  min-width: 120px;
 }
 
 .report-container th {
@@ -407,6 +417,7 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-3);
+  white-space: nowrap;
 }
 
 .report-container blockquote {
@@ -428,6 +439,7 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 .badge-critical { background: rgba(217,119,119,0.15); color: #ff7b7b; border: 1px solid rgba(217,119,119,0.3); }
 .badge-high { background: rgba(255,165,0,0.15); color: #ffb347; border: 1px solid rgba(255,165,0,0.3); }
@@ -438,12 +450,19 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
   :root { --gutter: 16px; }
   .header-inner { height: 58px; }
   .brand-text > span:first-child { font-size: 12px; }
-  .hero { padding: 56px var(--gutter) 40px; }
-  .hero-title { font-size: 28px; }
+  .hero { padding: 48px var(--gutter) 32px; }
+  .hero-title { font-size: 26px; }
   .hero-sub { font-size: 14px; }
   .grid { grid-template-columns: 1fr; }
-  .report-container { padding-top: 24px; }
-  .report-container h1 { font-size: 24px; }
+  .card { padding: 16px; }
+  .report-container { padding-top: 24px; padding-bottom: 48px; font-size: 14px; }
+  .report-container h1 { font-size: 22px; }
+  .report-container h2 { font-size: 18px; margin-top: 32px; }
+  .report-container h3 { font-size: 15px; margin-top: 24px; }
+  .report-container pre { padding: 12px; }
+  .report-container pre code { font-size: 12px; }
+  .report-container th, .report-container td { padding: 8px 10px; font-size: 13px; min-width: 90px; }
+  .section-title { font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
