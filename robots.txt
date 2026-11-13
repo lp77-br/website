@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lp77.one/sitemap.xml
+Sitemap: https://www.lp77.one/sitemap.xml
