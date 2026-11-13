@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="author" content="Lucas (lp77.br)">
+  <meta name="description" content="Security Assessment of Astrum (app.astrum.mobile). Authorized mobile penetration test with responsible disclosure.">
+  <title>Astrum Security Assessment — Lucas (lp77.br)</title>
+  <link rel="canonical" href="https://www.lp77.one/astrum.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo" aria-label="lp77.one — home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(123,157,255,0.12)" stroke="#7b9dff" stroke-width="1.4"/>
+            <path d="M8.5 9.5 6 12l2.5 2.5M15.5 9.5 18 12l-2.5 2.5M13.5 8l-3 8" stroke="#7b9dff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <span>lp77.one</span>
+          <span class="online-status">
+            <span class="dot" aria-hidden="true"></span>
+            <span>Offensive Security</span>
+          </span>
+        </div>
+      </a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="/" class="btn-action" style="border: none; padding: 0; background: transparent; font-size: 13px; text-transform: none; letter-spacing: 0; color: var(--text-2);">&larr; Back to home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="report-container" id="main">
+    
+    <p class="card-subtitle" style="margin-bottom: 12px;">Authorized Assessment</p>
+    <h1>Security Assessment — Astrum (app.astrum.mobile)</h1>
+    <p style="font-size: 16px; color: var(--text-3); margin-bottom: 40px;">
+      Pesquisa de segurança em aplicativo Android, com divulgação responsável. Atualização 30/09/2026.
+    </p>
+
+    <table>
+      <tr><th>Campo</th><th>Valor</th></tr>
+      <tr><td>Alvo</td><td>Astrum — app de conquista de território baseado em GPS</td></tr>
+      <tr><td>Plataforma</td><td>Android (app.astrum.mobile)</td></tr>
+      <tr><td>Stack identificada</td><td>React Native + Expo + Supabase + Mapbox + RevenueCat + Firebase</td></tr>
+      <tr><td>Origem da interface</td><td>Rork (AI app builder) — inferido via <code>expo-router.origin</code></td></tr>
+      <tr><td>Período</td><td>14/09/2026 – 29/09/2026</td></tr>
+      <tr><td>Duração</td><td>~4 dias de teste ativo, intercalados ao longo de 2 semanas</td></tr>
+      <tr><td>Autorização</td><td>Concedida explicitamente pelo desenvolvedor durante o processo</td></tr>
+    </table>
+
+    <h2>TL;DR</h2>
+    <p>
+      Análise de segurança de um aplicativo Android de conquista de território baseado em GPS. Encontrei 11 achados — 2 críticos (IDOR em <code>profiles</code> e enumeração em massa de usuários), 5 de severidade alta (exposição excessiva de trajeto GPS, privilege escalation via PATCH, duas falhas de validação na importação de GPX, e ausência de divulgação de SDKs de rastreamento), 2 médios (enumeração via signup, secret token do Mapbox exposto) e 2 de severidade baixa/informativa.
+    </p>
+    <p>
+      Todas as falhas foram reportadas ao desenvolvedor antes de qualquer divulgação pública. Parte dos achados foi corrigida durante o processo; outros foram reconhecidos e ficaram pendentes. Nenhum dado de usuário real foi armazenado, compartilhado ou utilizado para qualquer fim além da confirmação técnica das vulnerabilidades.
+    </p>
+
+    <h2>1. Contexto</h2>
+    <p>
+      Encontrei o app por acaso (vídeo do próprio desenvolvedor no TikTok). O Astrum é um jogo de conquista de território baseado em GPS — o usuário corre/caminha fechando circuitos que viram "territórios" no mapa, com ranking público por área conquistada.
+    </p>
+    <p>
+      Comecei com testes pela interface oficial, sem engenharia reversa. Após encontrar os primeiros achados, entrei em contato com o desenvolvedor, que autorizou a continuidade dos testes. A partir daí, aprofundei a análise com ferramentas de interceptação e inspeção de tráfego.
+    </p>
+    <p>
+      O app está em desenvolvimento ativo por um desenvolvedor solo, o que contextualiza algumas das falhas encontradas (sobrecarga de funções, ausência de documentação legal, etc.). A interface foi construída com auxílio do Rork (AI app builder), mas toda a lógica de backend, banco de dados, RPCs e mecânicas de jogo foi desenvolvida manualmente. Essa distinção explica por que algumas proteções estavam corretas (storage, rate limit, RLS do plano Pro), enquanto outras tabelas ficaram com lacunas de configuração.
+    </p>
+
+    <h2>2. Escopo e princípios éticos</h2>
+    <h3>Incluído no escopo</h3>
+    <ul>
+      <li>Testes pela interface oficial do app</li>
+      <li>Interceptação de tráfego HTTPS via proxy (com autorização)</li>
+      <li>Análise de armazenamento local em dispositivo com root (próprio)</li>
+      <li>Interação direta com APIs (REST + RPCs + Edge Functions do Supabase)</li>
+      <li>Extração de arquivos de configuração do APK (<code>app.config.js</code>, <code>google-services.json</code>)</li>
+      <li>Inspeção de metadados e escopos de chaves de API de terceiros</li>
+    </ul>
+
+    <h3>Excluído por decisão própria</h3>
+    <ul>
+      <li>Engenharia reversa completa do APK (JADX, apktool)</li>
+      <li>Modificação do APK</li>
+      <li>Acesso a dados de terceiros além do estritamente necessário para confirmar achados</li>
+      <li>Testes destrutivos (DoS, flood, XML bomb)</li>
+      <li>Divulgação pública antes de correção</li>
+    </ul>
+
+    <blockquote>
+      <strong>Regra autoimposta crítica:</strong> Todos os testes de manipulação foram executados em regiões remotas (Amazônia e Oceano Atlântico Sul) com contas de teste controladas para evitar impacto em usuários reais ou poluição do mapa global.
+    </blockquote>
+
+    <h2>3. Metodologia</h2>
+    <h3>Stack de ferramentas</h3>
+    <table>
+      <tr><th>Camada</th><th>Ferramenta</th></tr>
+      <tr><td>Interceptação HTTPS</td><td>mitmproxy (filtros ao vivo) + Frida (unpinning)</td></tr>
+      <tr><td>Análise de tráfego</td><td>PCAPdroid (triagem), mitmproxy (detalhado)</td></tr>
+      <tr><td>Inspeção local</td><td>Termux + root, MT Manager</td></tr>
+      <tr><td>Geração de payloads</td><td>Scripts Python customizados (GPX)</td></tr>
+      <tr><td>Instrumentação</td><td>Frida 17.x (bypass de certificate pinning)</td></tr>
+      <tr><td>Análise de APK</td><td>Extração ZIP + grep em assets</td></tr>
+      <tr><td>Inspeção de chaves de API</td><td><code>curl</code> direto contra endpoints de introspecção (Mapbox <code>/tokens/v2</code>)</td></tr>
+    </table>
+
+    <h2>4. Achados</h2>
+
+    <h3>4.1 — IDOR em <code>profiles</code>: leitura de email de qualquer usuário</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-critical">Crítica</span> (LGPD — dado pessoal)<br>
+    <strong>CVSS 3.1:</strong> 6.4 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)</p>
+    <p>A tabela <code>profiles</code> do Supabase estava com Row Level Security frouxo, permitindo que qualquer usuário autenticado lesse o email de qualquer outro usuário, bastando conhecer o UUID.</p>
+    <p><strong>Reprodução:</strong></p>
+    <pre><code>curl -s "https://&lt;project&gt;.supabase.co/rest/v1/profiles?select=email&id=eq.&lt;target_uuid&gt;" \
+  -H "apikey: &lt;publishable_key&gt;" \
+  -H "Authorization: Bearer &lt;access_token&gt;"</code></pre>
+    <p><strong>Resultado:</strong> <code>[{"email": "&lt;redacted&gt;"}]</code> — email real de outro usuário.</p>
+    <p><strong>Impacto:</strong> Enumeração de emails + correlação com nome público (via ranking) = doxxing trivial. Sob LGPD, configura tratamento inadequado de dado pessoal.</p>
+    <p><strong>Status:</strong> Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09, sem confirmação específica deste item. Não reverificado.</p>
+
+    <h3>4.2 — Exposição excessiva de trajeto GPS via API</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-high">Alta</span> (LGPD — dado sensível, localização)<br>
+    <strong>CVSS 3.1:</strong> 5.9 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)</p>
+    <p>A tabela <code>activities</code> retorna o <code>path.coordinates</code> (trajeto GPS completo) para qualquer usuário autenticado, mediante conhecimento do ID da atividade. A visibilidade de atividades entre usuários é uma feature intencional do app, porém a API expõe o trajeto completo — não apenas dados agregados.</p>
+    <p><strong>Reprodução:</strong></p>
+    <pre><code>curl -s "https://&lt;project&gt;.supabase.co/rest/v1/activities?select=*&id=eq.&lt;activity_uuid&gt;" \
+  -H "apikey: &lt;publishable_key&gt;" \
+  -H "Authorization: Bearer &lt;access_token&gt;"</code></pre>
+    <p><strong>Impacto:</strong> Ainda que a visibilidade seja intencional, o nível de detalhe exposto permite inferir localização de residência, trabalho e rotina de treino a partir do trajeto completo. A distinção correta aqui não é IDOR clássico, mas <em>excessive data exposure</em>.</p>
+    <p><strong>Recomendação:</strong> Expor apenas dados agregados (distância, pace médio, horário) na API pública de atividades, mantendo o trajeto completo acessível somente ao próprio usuário ou mediante consentimento explícito.</p>
+    <p><strong>Status:</strong> Reportado em 21/09. Desenvolvedor confirmou que a visibilidade é intencional, mas reconheceu necessidade de revisão de escopo. Pendente.</p>
+
+    <h3>4.3 — Enumeração em massa de usuários</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-critical">Crítica</span><br>
+    <strong>CVSS 3.1:</strong> 6.4 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)</p>
+    <p>A query <code>profiles?select=id,name</code> sem filtro retornava toda a base de usuários, sem paginação obrigatória nem restrição por usuário autenticado.</p>
+    <p><strong>Reprodução:</strong></p>
+    <pre><code>curl -s "https://&lt;project&gt;.supabase.co/rest/v1/profiles?select=id,name&limit=5" \
+  -H "apikey: &lt;publishable_key&gt;" \
+  -H "Authorization: Bearer &lt;access_token&gt;"</code></pre>
+    <p><strong>Resultado:</strong> Lista de usuários reais (nomes + UUIDs).</p>
+    <p><strong>Impacto:</strong> Base completa de usuários enumerável. Combinado com 4.1, forma um pipeline direto de enumeração → coleta de emails.</p>
+    <p><strong>Status:</strong> Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09, sem confirmação específica deste item. Não reverificado.</p>
+
+    <h3>4.4 — PATCH em colunas sensíveis de profiles (privilege escalation)</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-high">Alta</span> (potencialmente Crítica se consumida por RPC/Edge Function)<br>
+    <strong>CVSS 3.1:</strong> 6.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)</p>
+    <p>A tabela <code>profiles</code> aceitava PATCH em colunas sensíveis via API REST (<code>is_admin</code>, <code>total_points</code>, <code>total_conquests</code>, <code>total_area</code>, <code>territories_owned</code>). A escrita foi aceita (HTTP 200) mesmo sem a UI renderizar essas colunas.</p>
+    <p><strong>Reprodução:</strong></p>
+    <pre><code>curl -s -X PATCH "https://&lt;project&gt;.supabase.co/rest/v1/profiles?id=eq.&lt;self_uuid&gt;" \
+  -H "apikey: &lt;publishable_key&gt;" \
+  -H "Authorization: Bearer &lt;access_token&gt;" \
+  -H "Content-Type: application/json" \
+  -H "Prefer: return=representation" \
+  -d '{"is_admin": true, "total_points": 999999}'</code></pre>
+    <p><strong>Resultado:</strong> 200 — colunas alteradas.</p>
+    <p><strong>Impacto:</strong> As stats são computadas por RPC e a UI não as exibe, mas a escrita é aceita no banco. Se qualquer RPC/Edge Function consultar <code>is_admin</code> para autorização, é privilege escalation direta.</p>
+    <p><strong>Status:</strong> Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09.</p>
+
+    <h3>4.5 — Importação de GPX aceita datas futuras</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-high">Alta</span><br>
+    <strong>CVSS 3.1:</strong> 6.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)</p>
+    <p>A funcionalidade de importação de GPX aceitava arquivos com timestamp no futuro, sem validação server-side. Testei com um ano de antecedência e o território foi criado, com Stars creditados.</p>
+    <p><strong>Por que é mais grave do que parece:</strong> O app resolve conflitos de território pela atividade mais recente (se eu corri ontem e você correu hoje, o território é seu). Um GPX com data futura "reserva" o território indefinidamente — nenhuma corrida real consegue sobrescrevê-lo. Isso nega acesso legítimo ao jogo.</p>
+    <p><strong>Status:</strong> Reportado em 14/09. Desenvolvedor afirmou já ter tentado corrigir anteriormente, mas a validação ainda estava ausente na ocasião do teste.</p>
+
+    <h3>4.6 — Importação de GPX aceita coordenadas em oceano aberto</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-high">Alta</span><br>
+    <strong>CVSS 3.1:</strong> 6.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)</p>
+    <p>O servidor não valida se a atividade ocorreu em terra firme. Um GPX centrado em coordenada oceânica (ex: -23.5000, -42.5000, Atlântico Sul) foi aceito e criou território.</p>
+    <p><strong>Impacto:</strong> Ausência total de validação geoespacial no backend. Permite criação de territórios em áreas restritas, militares ou inacessíveis.</p>
+    <p><strong>Status:</strong> Reportado em 14/09. Desenvolvedor questionou a viabilidade de validação completa, mas reconheceu o problema. Validações temporais e geoespaciais simples (bbox, land mask, delta T) são triviais de implementar.</p>
+
+    <h3>4.7 — Enumeração de usuários via tela de cadastro</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-medium">Média</span><br>
+    <strong>CVSS 3.1:</strong> 5.3 (AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</p>
+    <p>A tela de cadastro retorna mensagem distinta ("Esse e-mail já está registrado") quando o email já existe, permitindo enumeração da base de usuários. Pré-condição para credential stuffing.</p>
+
+    <h3>4.8 — Secret token do Mapbox (sk.) exposto no bundle</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-medium">Média</span><br>
+    <strong>CVSS 3.1:</strong> 5.3 (AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</p>
+    <p>O arquivo <code>app.config.js</code> do APK expõe um secret token do Mapbox (<code>sk.eyJ1Ijoi...</code>) no campo <code>RNMAPBOX_MAPS_DOWNLOAD_TOKEN</code>. O token não possui escopos administrativos, mas permite abuso de quota e banda (download de tiles em loop na conta do desenvolvedor).</p>
+
+    <h3>4.9 — NSAllowsArbitraryLoads: true no infoPlist do iOS</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-low">Baixa</span> / hardening</p>
+    <p>O <code>app.config.js</code> define <code>NSAllowsArbitraryLoads: true</code> dentro de <code>ios.infoPlist</code>, desabilitando globalmente o App Transport Security (ATS) no iOS. Amplia superfície de MITM em iOS, mesmo com certificate pinning ativo em camadas superiores.</p>
+
+    <h3>4.10 — Ausência de divulgação de SDKs de rastreamento</h3>
+    <p><strong>Severidade:</strong> <span class="badge badge-high">Alta</span> (LGPD — transparência e finalidade)</p>
+    <p>O bundle do app inclui SDKs de analytics/rastreamento de múltiplos fornecedores (Firebase, Mapbox Telemetry, RevenueCat e outros). A política de privacidade disponível não detalha quais SDKs coletam dados, com qual finalidade e sob qual base legal. Potencial violação dos Art. 6º e Art. 9º da LGPD.</p>
+
+    <h3>4.11 — Observação: ausência de validação de distância máxima (não testado)</h3>
+    <p><strong>Severidade:</strong> <span class="badge" style="background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border);">Informativa</span></p>
+    <p>Considerei importar um GPX com distância extremamente alta para verificar se o servidor impõe limite. Não executei porque, na ausência de validação (comprovada nos achados 4.5 e 4.6), um trajeto dessa magnitude poderia instabilizar dispositivos antigos ou sobrecarregar o servidor durante o processamento de geometria. Reportei como suspeita técnica sem executar.</p>
+
+    <h2>5. Boa prática observada</h2>
+    <ul>
+      <li><strong>Storage do Supabase protegido:</strong> o bucket <code>activity-imports</code> está corretamente isolado por usuário.</li>
+      <li><strong>Detecção de manipulação local:</strong> o app detecta alteração do flag local <code>pro_enabled</code> e força logout. A validação real do plano é server-side.</li>
+      <li><strong>Anti-cheat parcial:</strong> o sistema detecta anomalias óbvias (saltos geográficos, paces impossíveis) e cobriu um incidente anterior. Cobre razoavelmente o fluxo de corrida, mas não o fluxo de importação GPX.</li>
+      <li><strong>Rate limit em reset de senha:</strong> o código de 8 dígitos tem cooldown de 1 minuto entre tentativas, inviabilizando brute force.</li>
+      <li><strong>Mapbox:</strong> o <code>sk.</code> exposto está corretamente restrito (sem escopos administrativos).</li>
+      <li><strong>Backend manual:</strong> o desenvolvedor implementou manualmente a lógica de backend, RPCs e proteções críticas. As falhas de RLS encontradas são pontuais e de configuração, não de arquitetura.</li>
+    </ul>
+
+    <h2>6. Conclusão</h2>
+    <p>
+      O Astrum tem uma base de segurança razoável em pontos específicos, mas apresenta falhas de configuração em tabelas específicas: RLS mal configurado em tabelas com dados pessoais, aceitação de PATCH em colunas de autorização, ausência de validação server-side na importação de GPX, e lacunas de compliance sob LGPD.
+    </p>
+    <p>
+      Os achados mais graves — leitura de email de qualquer usuário e enumeração em massa da base — foram reportados imediatamente ao desenvolvedor, com scripts de reprodução e recomendações de correção. O processo completo está documentado e disponível para discussão técnica.
+    </p>
+
+    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-3); font-style: italic;">
+      Este relatório foi elaborado de forma independente, com autorização explícita do desenvolvedor. Nenhum dado de usuário real está incluído. Nenhuma informação foi divulgada publicamente antes da correção.
+    </p>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; <span id="year">2026</span> Lucas · www.lp77.one</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
