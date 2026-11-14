@@ -206,7 +206,10 @@ strong { color: var(--text); font-weight: 600; }
 a.card { color: inherit; text-decoration: none; }
 a.card:hover { color: inherit; border-color: var(--border-hi); background: var(--surface-2); }
 .card-static { cursor: default; }
-.card-static:hover { border-color: var(--border-hi); background: var(--surface-2); }
+.card-static:hover { border-color: var(--border); background: var(--surface); }
+.card-ghost { border-style: dashed; border-color: var(--border-hi); background: transparent; }
+.card-ghost:hover { background: transparent; border-color: var(--border-hi); }
+.card-ghost .card-title, .card-ghost .card-desc { opacity: .85; }
 
 .card-header {
   display: flex; align-items: flex-start; justify-content: space-between;
@@ -399,8 +402,6 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
 .badge-medium { background: rgba(255,255,0,0.15); color: #ffd700; border: 1px solid rgba(255,255,0,0.3); }
 .badge-low { background: rgba(123,157,255,0.15); color: #7b9dff; border: 1px solid rgba(123,157,255,0.3); }
 
-
-/* ---------- Hero ---------- */
 .hero {
   position: relative; overflow: hidden; text-align: center;
   padding: 88px var(--gutter) 72px;
@@ -468,7 +469,6 @@ a.card:hover { color: inherit; border-color: var(--border-hi); background: var(-
 .stat-row strong { font-family: var(--font-mono); font-size: 28px; font-weight: 500; color: var(--text); line-height: 1; }
 .stat-row span { font-size: 12px; color: var(--text-3); font-family: var(--font-mono); letter-spacing: 0.02em; text-align: center; }
 
-/* ---------- Cards (index) ---------- */
 .grid-feature { grid-template-columns: 1fr; }
 .section-title { font-size: 13px; color: var(--text-2); }
 .card-tag {
@@ -512,7 +512,8 @@ a.card-featured:hover .card-status-link { color: var(--accent-2); }
 .site-footer a { display: inline-block; padding: 6px 0; }
 
 @media (min-width: 860px) {
-  .grid-feature { grid-template-columns: 1.65fr 1fr; gap: 20px; }
+  .grid-feature { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-feature .card-featured { grid-column: 1 / -1; }
   .card { padding: 26px; }
   .card-featured { flex-direction: row; gap: 32px; }
   .card-featured .card-side { width: 240px; flex: none; justify-content: flex-end; margin-top: 0; padding-left: 28px; border-left: 1px solid var(--border); }
@@ -526,7 +527,6 @@ a.card-featured:hover .card-status-link { color: var(--accent-2); }
   .hero { padding: 84px var(--gutter) 64px; }
 }
 
-/* ---------- Astrum report ---------- */
 .report-meta-line { font-size: 16px; color: var(--text-3); margin-bottom: 40px; }
 .report-container .back-link { display: inline-flex; align-items: center; gap: 6px; }
 
