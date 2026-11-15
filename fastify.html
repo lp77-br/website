@@ -211,7 +211,7 @@
     </div>
   </footer>
 
-  <a href="#top" class="to-top" id="to-top" aria-label="Back to top" data-en="Back to top" data-pt="Voltar ao topo"><span aria-hidden="true">&uarr;</span></a>
+  <a href="#top" class="to-top" id="to-top" data-en-aria="Back to top" data-pt-aria="Voltar ao topo" aria-label="Back to top"><span aria-hidden="true">&uarr;</span></a>
 
   <script>
     (function () {
@@ -238,6 +238,11 @@
         els.forEach(function (el) {
           var val = el.dataset[isPt ? 'pt' : 'en'];
           if (val != null) el.innerHTML = val;
+        });
+
+        document.querySelectorAll('[data-en-aria]').forEach(function (el) {
+          var label = isPt ? el.getAttribute('data-pt-aria') : el.getAttribute('data-en-aria');
+          if (label) el.setAttribute('aria-label', label);
         });
 
         buttons.forEach(function (b) {
