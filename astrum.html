@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +13,69 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      flex: 0 0 auto;
+    }
+
+    .lang-switch button {
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      min-width: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #8b93a7;
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .lang-switch button:hover { color: #cfd6e6; }
+
+    .lang-switch button:focus-visible {
+      outline: 2px solid #7b9dff;
+      outline-offset: 2px;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      background: rgba(123, 157, 255, 0.16);
+      color: #7b9dff;
+    }
+
+    @media (max-width: 640px) {
+      .header-nav { gap: 8px; }
+      .lang-switch button { padding: 6px 8px; min-width: 30px; font-size: 11px; }
+    }
+
+    @media (max-width: 420px) {
+      .header-nav .btn-ghost { padding: 8px; gap: 0; font-size: 0; }
+      .header-nav .btn-ghost svg { width: 16px; height: 16px; }
+    }
+  </style>
 </head>
 <body id="top">
 
-  <a href="#main" class="skip-link">Ir para o conteúdo</a>
+  <a href="#main" class="skip-link" data-en="Skip to content" data-pt="Pular para o conteúdo">Skip to content</a>
 
   <header class="site-header">
     <div class="header-inner">
@@ -31,215 +90,252 @@
           <span>lp77.one</span>
           <span class="online-status">
             <span class="dot" aria-hidden="true"></span>
-            <span>Offensive Security</span>
+            <span data-en="Offensive Security" data-pt="Segurança Ofensiva">Offensive Security</span>
           </span>
         </div>
       </a>
-      <nav class="header-nav" aria-label="Navegação principal">
-        <a href="/" class="btn-ghost"><span aria-hidden="true">&larr;</span> Início</a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma">
+          <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="pt" lang="pt-BR" aria-pressed="false">PT</button>
+        </div>
+        <a href="/" class="btn-ghost"><span aria-hidden="true">&larr;</span> <span data-en="Home" data-pt="Início">Home</span></a>
       </nav>
     </div>
   </header>
 
   <main class="report-container" id="main">
-    
-    <p class="card-subtitle" style="margin-bottom: 12px;">Avaliação autorizada</p>
+
+    <p class="card-subtitle" style="margin-bottom: 12px;" data-en="Authorized assessment" data-pt="Avaliação autorizada">Authorized assessment</p>
     <h1>Security Assessment — Astrum (app.astrum.mobile)</h1>
-    <p class="report-meta-line">
-      Pesquisa de segurança em aplicativo Android, com divulgação responsável. Atualização 30/09/2026.
-    </p>
+    <p class="report-meta-line" data-en="Security research on an Android app, with responsible disclosure. Updated September 30, 2026." data-pt="Pesquisa de segurança em aplicativo Android, com divulgação responsável. Atualização 30/09/2026.">Security research on an Android app, with responsible disclosure. Updated September 30, 2026.</p>
 
     <div class="table-wrap"><table>
-      <tr><th>Campo</th><th>Valor</th></tr>
-      <tr><td>Alvo</td><td>Astrum — app de conquista de território baseado em GPS</td></tr>
-      <tr><td>Plataforma</td><td>Android (app.astrum.mobile)</td></tr>
-      <tr><td>Stack identificada</td><td>React Native + Expo + Supabase + Mapbox + RevenueCat + Firebase</td></tr>
-      <tr><td>Origem da interface</td><td>Rork (AI app builder) — inferido via <code>expo-router.origin</code></td></tr>
-      <tr><td>Período</td><td>14/09/2026 – 29/09/2026</td></tr>
-      <tr><td>Duração</td><td>~4 dias de teste ativo, intercalados ao longo de 2 semanas</td></tr>
-      <tr><td>Autorização</td><td>Concedida explicitamente pelo desenvolvedor durante o processo</td></tr>
+      <tr><th data-en="Field" data-pt="Campo">Field</th><th data-en="Value" data-pt="Valor">Value</th></tr>
+      <tr><td data-en="Target" data-pt="Alvo">Target</td><td data-en="Astrum — GPS-based territory-conquest app" data-pt="Astrum — app de conquista de território baseado em GPS">Astrum — GPS-based territory-conquest app</td></tr>
+      <tr><td data-en="Platform" data-pt="Plataforma">Platform</td><td data-en="Android (app.astrum.mobile)" data-pt="Android (app.astrum.mobile)">Android (app.astrum.mobile)</td></tr>
+      <tr><td data-en="Identified stack" data-pt="Stack identificada">Identified stack</td><td data-en="React Native + Expo + Supabase + Mapbox + RevenueCat + Firebase" data-pt="React Native + Expo + Supabase + Mapbox + RevenueCat + Firebase">React Native + Expo + Supabase + Mapbox + RevenueCat + Firebase</td></tr>
+      <tr><td data-en="UI origin" data-pt="Origem da interface">UI origin</td><td data-en="Rork (AI app builder) — inferred via &lt;code&gt;expo-router.origin&lt;/code&gt;" data-pt="Rork (AI app builder) — inferido via &lt;code&gt;expo-router.origin&lt;/code&gt;">Rork (AI app builder) — inferred via <code>expo-router.origin</code></td></tr>
+      <tr><td data-en="Period" data-pt="Período">Period</td><td data-en="09/14/2026 – 09/29/2026" data-pt="14/09/2026 – 29/09/2026">09/14/2026 – 09/29/2026</td></tr>
+      <tr><td data-en="Duration" data-pt="Duração">Duration</td><td data-en="~4 days of active testing, interleaved over 2 weeks" data-pt="~4 dias de teste ativo, intercalados ao longo de 2 semanas">~4 days of active testing, interleaved over 2 weeks</td></tr>
+      <tr><td data-en="Authorization" data-pt="Autorização">Authorization</td><td data-en="Explicitly granted by the developer during the process" data-pt="Concedida explicitamente pelo desenvolvedor durante o processo">Explicitly granted by the developer during the process</td></tr>
     </table></div>
 
     <h2>TL;DR</h2>
-    <p>
-      Análise de segurança de um aplicativo Android de conquista de território baseado em GPS. Encontrei 11 achados — 2 críticos (IDOR em <code>profiles</code> e enumeração em massa de usuários), 5 de severidade alta (exposição excessiva de trajeto GPS, privilege escalation via PATCH, duas falhas de validação na importação de GPX, e ausência de divulgação de SDKs de rastreamento), 2 médios (enumeração via signup, secret token do Mapbox exposto) e 2 de severidade baixa/informativa.
+    <p data-en="Security assessment of a GPS-based territory-conquest Android app. I found 11 findings — 2 critical (IDOR in &lt;code&gt;profiles&lt;/code&gt; and mass user enumeration), 5 high (excessive GPS track exposure, privilege escalation via PATCH, two GPX-import validation flaws, and undisclosed tracking SDKs), 2 medium (enumeration via signup, exposed Mapbox secret token) and 2 low/informational." data-pt="Análise de segurança de um aplicativo Android de conquista de território baseado em GPS. Encontrei 11 achados — 2 críticos (IDOR em &lt;code&gt;profiles&lt;/code&gt; e enumeração em massa de usuários), 5 de severidade alta (exposição excessiva de trajeto GPS, privilege escalation via PATCH, duas falhas de validação na importação de GPX, e ausência de divulgação de SDKs de rastreamento), 2 médios (enumeração via signup, secret token do Mapbox exposto) e 2 de severidade baixa/informativa.">
+      Security assessment of a GPS-based territory-conquest Android app. I found 11 findings — 2 critical (IDOR in <code>profiles</code> and mass user enumeration), 5 high (excessive GPS track exposure, privilege escalation via PATCH, two GPX-import validation flaws, and undisclosed tracking SDKs), 2 medium (enumeration via signup, exposed Mapbox secret token) and 2 low/informational.
     </p>
-    <p>
-      Todas as falhas foram reportadas ao desenvolvedor antes de qualquer divulgação pública. Parte dos achados foi corrigida durante o processo; outros foram reconhecidos e ficaram pendentes. Nenhum dado de usuário real foi armazenado, compartilhado ou utilizado para qualquer fim além da confirmação técnica das vulnerabilidades.
+    <p data-en="All flaws were reported to the developer before any public disclosure. Some findings were fixed during the process; others were acknowledged and remain pending. No real user data was stored, shared, or used for any purpose beyond the technical confirmation of the vulnerabilities." data-pt="Todas as falhas foram reportadas ao desenvolvedor antes de qualquer divulgação pública. Parte dos achados foi corrigida durante o processo; outros foram reconhecidos e ficaram pendentes. Nenhum dado de usuário real foi armazenado, compartilhado ou utilizado para qualquer fim além da confirmação técnica das vulnerabilidades.">
+      All flaws were reported to the developer before any public disclosure. Some findings were fixed during the process; others were acknowledged and remain pending. No real user data was stored, shared, or used for any purpose beyond the technical confirmation of the vulnerabilities.
     </p>
 
     <nav class="toc" aria-labelledby="toc-title">
-      <p class="toc-title" id="toc-title">Achados por severidade</p>
+      <p class="toc-title" id="toc-title" data-en="Findings by severity" data-pt="Achados por severidade">Findings by severity</p>
       <div class="sev-summary">
-        <span class="badge badge-critical">2 críticos</span>
-        <span class="badge badge-high">5 altos</span>
-        <span class="badge badge-medium">2 médios</span>
-        <span class="badge badge-low">2 baixo/info</span>
+        <span class="badge badge-critical" data-en="2 critical" data-pt="2 críticos">2 critical</span>
+        <span class="badge badge-high" data-en="5 high" data-pt="5 altos">5 high</span>
+        <span class="badge badge-medium" data-en="2 medium" data-pt="2 médios">2 medium</span>
+        <span class="badge badge-low" data-en="2 low/info" data-pt="2 baixo/info">2 low/info</span>
       </div>
       <ol class="toc-list">
-<li><a href="#f1"><span class="toc-n">4.1</span><span>IDOR em profiles: leitura de email</span><span class="badge badge-critical">Crítica</span></a></li>
-<li><a href="#f2"><span class="toc-n">4.2</span><span>Exposição excessiva de trajeto GPS</span><span class="badge badge-high">Alta</span></a></li>
-<li><a href="#f3"><span class="toc-n">4.3</span><span>Enumeração em massa de usuários</span><span class="badge badge-critical">Crítica</span></a></li>
-<li><a href="#f4"><span class="toc-n">4.4</span><span>PATCH em colunas sensíveis (privilege escalation)</span><span class="badge badge-high">Alta</span></a></li>
-<li><a href="#f5"><span class="toc-n">4.5</span><span>Importação de GPX aceita datas futuras</span><span class="badge badge-high">Alta</span></a></li>
-<li><a href="#f6"><span class="toc-n">4.6</span><span>Importação de GPX aceita coordenadas em oceano</span><span class="badge badge-high">Alta</span></a></li>
-<li><a href="#f7"><span class="toc-n">4.7</span><span>Enumeração de usuários via cadastro</span><span class="badge badge-medium">Média</span></a></li>
-<li><a href="#f8"><span class="toc-n">4.8</span><span>Secret token do Mapbox exposto no bundle</span><span class="badge badge-medium">Média</span></a></li>
-<li><a href="#f9"><span class="toc-n">4.9</span><span>NSAllowsArbitraryLoads no infoPlist do iOS</span><span class="badge badge-low">Baixa</span></a></li>
-<li><a href="#f10"><span class="toc-n">4.10</span><span>Ausência de divulgação de SDKs de rastreamento</span><span class="badge badge-high">Alta</span></a></li>
-<li><a href="#f11"><span class="toc-n">4.11</span><span>Validação de distância máxima (não testado)</span><span class="badge" style="background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border);">Informativa</span></a></li>
+<li><a href="#f1"><span class="toc-n">4.1</span><span data-en="IDOR in profiles: email disclosure" data-pt="IDOR em profiles: leitura de email">IDOR in profiles: email disclosure</span><span class="badge badge-critical" data-en="Critical" data-pt="Crítica">Critical</span></a></li>
+<li><a href="#f2"><span class="toc-n">4.2</span><span data-en="Excessive GPS track exposure via API" data-pt="Exposição excessiva de trajeto GPS">Excessive GPS track exposure via API</span><span class="badge badge-high" data-en="High" data-pt="Alta">High</span></a></li>
+<li><a href="#f3"><span class="toc-n">4.3</span><span data-en="Mass user enumeration" data-pt="Enumeração em massa de usuários">Mass user enumeration</span><span class="badge badge-critical" data-en="Critical" data-pt="Crítica">Critical</span></a></li>
+<li><a href="#f4"><span class="toc-n">4.4</span><span data-en="PATCH on sensitive profiles columns (privilege escalation)" data-pt="PATCH em colunas sensíveis de profiles (privilege escalation)">PATCH on sensitive profiles columns (privilege escalation)</span><span class="badge badge-high" data-en="High" data-pt="Alta">High</span></a></li>
+<li><a href="#f5"><span class="toc-n">4.5</span><span data-en="GPX import accepts future dates" data-pt="Importação de GPX aceita datas futuras">GPX import accepts future dates</span><span class="badge badge-high" data-en="High" data-pt="Alta">High</span></a></li>
+<li><a href="#f6"><span class="toc-n">4.6</span><span data-en="GPX import accepts open-ocean coordinates" data-pt="Importação de GPX aceita coordenadas em oceano">GPX import accepts open-ocean coordinates</span><span class="badge badge-high" data-en="High" data-pt="Alta">High</span></a></li>
+<li><a href="#f7"><span class="toc-n">4.7</span><span data-en="User enumeration via signup screen" data-pt="Enumeração de usuários via cadastro">User enumeration via signup screen</span><span class="badge badge-medium" data-en="Medium" data-pt="Média">Medium</span></a></li>
+<li><a href="#f8"><span class="toc-n">4.8</span><span data-en="Mapbox secret token exposed in bundle" data-pt="Secret token do Mapbox exposto no bundle">Mapbox secret token exposed in bundle</span><span class="badge badge-medium" data-en="Medium" data-pt="Média">Medium</span></a></li>
+<li><a href="#f9"><span class="toc-n">4.9</span><span data-en="NSAllowsArbitraryLoads in iOS infoPlist" data-pt="NSAllowsArbitraryLoads no infoPlist do iOS">NSAllowsArbitraryLoads in iOS infoPlist</span><span class="badge badge-low" data-en="Low" data-pt="Baixa">Low</span></a></li>
+<li><a href="#f10"><span class="toc-n">4.10</span><span data-en="Undisclosed tracking SDKs" data-pt="Ausência de divulgação de SDKs de rastreamento">Undisclosed tracking SDKs</span><span class="badge badge-high" data-en="High" data-pt="Alta">High</span></a></li>
+<li><a href="#f11"><span class="toc-n">4.11</span><span data-en="Maximum-distance validation (not tested)" data-pt="Validação de distância máxima (não testado)">Maximum-distance validation (not tested)</span><span class="badge" style="background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border);" data-en="Informational" data-pt="Informativa">Informational</span></a></li>
       </ol>
     </nav>
 
-    <h2>1. Contexto</h2>
-    <p>
-      Encontrei o app por acaso (vídeo do próprio desenvolvedor no TikTok). O Astrum é um jogo de conquista de território baseado em GPS — o usuário corre/caminha fechando circuitos que viram "territórios" no mapa, com ranking público por área conquistada.
+    <h2 data-en="1. Context" data-pt="1. Contexto">1. Context</h2>
+    <p data-en="I found the app by chance (a video by the developer himself on TikTok). Astrum is a GPS-based territory-conquest game — the user runs/walks closing loops that become &quot;territories&quot; on the map, with a public ranking per conquered area." data-pt="Encontrei o app por acaso (vídeo do próprio desenvolvedor no TikTok). O Astrum é um jogo de conquista de território baseado em GPS — o usuário corre/caminha fechando circuitos que viram &quot;territórios&quot; no mapa, com ranking público por área conquistada.">
+      I found the app by chance (a video by the developer himself on TikTok). Astrum is a GPS-based territory-conquest game — the user runs/walks closing loops that become "territories" on the map, with a public ranking per conquered area.
     </p>
-    <p>
-      Comecei com testes pela interface oficial, sem engenharia reversa. Após encontrar os primeiros achados, entrei em contato com o desenvolvedor, que autorizou a continuidade dos testes. A partir daí, aprofundei a análise com ferramentas de interceptação e inspeção de tráfego.
+    <p data-en="I started testing through the official interface, without reverse engineering. After finding the first issues, I contacted the developer, who authorized continuing the tests. From there, I deepened the analysis with interception tools and traffic inspection." data-pt="Comecei com testes pela interface oficial, sem engenharia reversa. Após encontrar os primeiros achados, entrei em contato com o desenvolvedor, que autorizou a continuidade dos testes. A partir daí, aprofundei a análise com ferramentas de interceptação e inspeção de tráfego.">
+      I started testing through the official interface, without reverse engineering. After finding the first issues, I contacted the developer, who authorized continuing the tests. From there, I deepened the analysis with interception tools and traffic inspection.
     </p>
-    <p>
-      O app está em desenvolvimento ativo por um desenvolvedor solo, o que contextualiza algumas das falhas encontradas (sobrecarga de funções, ausência de documentação legal, etc.). A interface foi construída com auxílio do Rork (AI app builder), mas toda a lógica de backend, banco de dados, RPCs e mecânicas de jogo foi desenvolvida manualmente. Essa distinção explica por que algumas proteções estavam corretas (storage, rate limit, RLS do plano Pro), enquanto outras tabelas ficaram com lacunas de configuração.
+    <p data-en="The app is under active development by a solo developer, which contextualizes some of the issues found (overloaded functions, absence of legal documentation, etc.). The UI was built with the help of Rork (AI app builder), but all backend logic, database, RPCs, and game mechanics were developed manually. This distinction explains why some protections were correct (storage, rate limit, Pro-plan RLS) while other tables had configuration gaps." data-pt="O app está em desenvolvimento ativo por um desenvolvedor solo, o que contextualiza algumas das falhas encontradas (sobrecarga de funções, ausência de documentação legal, etc.). A interface foi construída com auxílio do Rork (AI app builder), mas toda a lógica de backend, banco de dados, RPCs e mecânicas de jogo foi desenvolvida manualmente. Essa distinção explica por que algumas proteções estavam corretas (storage, rate limit, RLS do plano Pro), enquanto outras tabelas ficaram com lacunas de configuração.">
+      The app is under active development by a solo developer, which contextualizes some of the issues found (overloaded functions, absence of legal documentation, etc.). The UI was built with the help of Rork (AI app builder), but all backend logic, database, RPCs, and game mechanics were developed manually. This distinction explains why some protections were correct (storage, rate limit, Pro-plan RLS) while other tables had configuration gaps.
     </p>
 
-    <h2>2. Escopo e princípios éticos</h2>
-    <h3>Incluído no escopo</h3>
+    <h2 data-en="2. Scope and ethical principles" data-pt="2. Escopo e princípios éticos">2. Scope and ethical principles</h2>
+    <h3 data-en="In scope" data-pt="Incluído no escopo">In scope</h3>
     <ul>
-      <li>Testes pela interface oficial do app</li>
-      <li>Interceptação de tráfego HTTPS via proxy (com autorização)</li>
-      <li>Análise de armazenamento local em dispositivo com root (próprio)</li>
-      <li>Interação direta com APIs (REST + RPCs + Edge Functions do Supabase)</li>
-      <li>Extração de arquivos de configuração do APK (<code>app.config.js</code>, <code>google-services.json</code>)</li>
-      <li>Inspeção de metadados e escopos de chaves de API de terceiros</li>
+      <li data-en="Testing through the app's official interface" data-pt="Testes pela interface oficial do app">Testing through the app's official interface</li>
+      <li data-en="HTTPS traffic interception via proxy (with authorization)" data-pt="Interceptação de tráfego HTTPS via proxy (com autorização)">HTTPS traffic interception via proxy (with authorization)</li>
+      <li data-en="Local storage analysis on a rooted device (own)" data-pt="Análise de armazenamento local em dispositivo com root (próprio)">Local storage analysis on a rooted device (own)</li>
+      <li data-en="Direct interaction with APIs (REST + RPCs + Supabase Edge Functions)" data-pt="Interação direta com APIs (REST + RPCs + Edge Functions do Supabase)">Direct interaction with APIs (REST + RPCs + Supabase Edge Functions)</li>
+      <li data-en="Extraction of configuration files from the APK (&lt;code&gt;app.config.js&lt;/code&gt;, &lt;code&gt;google-services.json&lt;/code&gt;)" data-pt="Extração de arquivos de configuração do APK (&lt;code&gt;app.config.js&lt;/code&gt;, &lt;code&gt;google-services.json&lt;/code&gt;)">Extraction of configuration files from the APK (<code>app.config.js</code>, <code>google-services.json</code>)</li>
+      <li data-en="Inspection of metadata and scopes of third-party API keys" data-pt="Inspeção de metadados e escopos de chaves de API de terceiros">Inspection of metadata and scopes of third-party API keys</li>
     </ul>
 
-    <h3>Excluído por decisão própria</h3>
+    <h3 data-en="Explicitly out of scope" data-pt="Excluído por decisão própria">Explicitly out of scope</h3>
     <ul>
-      <li>Engenharia reversa completa do APK (JADX, apktool)</li>
-      <li>Modificação do APK</li>
-      <li>Acesso a dados de terceiros além do estritamente necessário para confirmar achados</li>
-      <li>Testes destrutivos (DoS, flood, XML bomb)</li>
-      <li>Divulgação pública antes de correção</li>
+      <li data-en="Full APK reverse engineering (JADX, apktool)" data-pt="Engenharia reversa completa do APK (JADX, apktool)">Full APK reverse engineering (JADX, apktool)</li>
+      <li data-en="APK modification" data-pt="Modificação do APK">APK modification</li>
+      <li data-en="Access to third-party data beyond the strict minimum needed to confirm findings" data-pt="Acesso a dados de terceiros além do estritamente necessário para confirmar achados">Access to third-party data beyond the strict minimum needed to confirm findings</li>
+      <li data-en="Destructive tests (DoS, flood, XML bomb)" data-pt="Testes destrutivos (DoS, flood, XML bomb)">Destructive tests (DoS, flood, XML bomb)</li>
+      <li data-en="Public disclosure prior to remediation" data-pt="Divulgação pública antes de correção">Public disclosure prior to remediation</li>
     </ul>
 
     <blockquote>
-      <strong>Regra autoimposta crítica:</strong> Todos os testes de manipulação foram executados em regiões remotas (Amazônia e Oceano Atlântico Sul) com contas de teste controladas para evitar impacto em usuários reais ou poluição do mapa global.
+      <strong data-en="Critical self-imposed rule:" data-pt="Regra autoimposta crítica:">Critical self-imposed rule:</strong>
+      <span data-en="All manipulation tests were performed in remote regions (Amazon and South Atlantic Ocean) with controlled test accounts to avoid impacting real users or polluting the global map." data-pt="Todos os testes de manipulação foram executados em regiões remotas (Amazônia e Oceano Atlântico Sul) com contas de teste controladas para evitar impacto em usuários reais ou poluição do mapa global.">All manipulation tests were performed in remote regions (Amazon and South Atlantic Ocean) with controlled test accounts to avoid impacting real users or polluting the global map.</span>
     </blockquote>
 
-    <h2>3. Metodologia</h2>
-    <h3>Stack de ferramentas</h3>
+    <h2 data-en="3. Methodology" data-pt="3. Metodologia">3. Methodology</h2>
+    <h3 data-en="Tooling stack" data-pt="Stack de ferramentas">Tooling stack</h3>
     <div class="table-wrap"><table>
-      <tr><th>Camada</th><th>Ferramenta</th></tr>
-      <tr><td>Interceptação HTTPS</td><td>mitmproxy (filtros ao vivo) + Frida (unpinning)</td></tr>
-      <tr><td>Análise de tráfego</td><td>PCAPdroid (triagem), mitmproxy (detalhado)</td></tr>
-      <tr><td>Inspeção local</td><td>Termux + root, MT Manager</td></tr>
-      <tr><td>Geração de payloads</td><td>Scripts Python customizados (GPX)</td></tr>
-      <tr><td>Instrumentação</td><td>Frida 17.x (bypass de certificate pinning)</td></tr>
-      <tr><td>Análise de APK</td><td>Extração ZIP + grep em assets</td></tr>
-      <tr><td>Inspeção de chaves de API</td><td><code>curl</code> direto contra endpoints de introspecção (Mapbox <code>/tokens/v2</code>)</td></tr>
+      <tr><th data-en="Layer" data-pt="Camada">Layer</th><th data-en="Tool" data-pt="Ferramenta">Tool</th></tr>
+      <tr><td data-en="HTTPS interception" data-pt="Interceptação HTTPS">HTTPS interception</td><td data-en="mitmproxy (live filters) + Frida (unpinning)" data-pt="mitmproxy (filtros ao vivo) + Frida (unpinning)">mitmproxy (live filters) + Frida (unpinning)</td></tr>
+      <tr><td data-en="Traffic analysis" data-pt="Análise de tráfego">Traffic analysis</td><td data-en="PCAPdroid (triage), mitmproxy (detailed)" data-pt="PCAPdroid (triagem), mitmproxy (detalhado)">PCAPdroid (triage), mitmproxy (detailed)</td></tr>
+      <tr><td data-en="Local inspection" data-pt="Inspeção local">Local inspection</td><td data-en="Termux + root, MT Manager" data-pt="Termux + root, MT Manager">Termux + root, MT Manager</td></tr>
+      <tr><td data-en="Payload generation" data-pt="Geração de payloads">Payload generation</td><td data-en="Custom Python scripts (GPX)" data-pt="Scripts Python customizados (GPX)">Custom Python scripts (GPX)</td></tr>
+      <tr><td data-en="Instrumentation" data-pt="Instrumentação">Instrumentation</td><td data-en="Frida 17.x (certificate pinning bypass)" data-pt="Frida 17.x (bypass de certificate pinning)">Frida 17.x (certificate pinning bypass)</td></tr>
+      <tr><td data-en="APK analysis" data-pt="Análise de APK">APK analysis</td><td data-en="ZIP extraction + grep on assets" data-pt="Extração ZIP + grep em assets">ZIP extraction + grep on assets</td></tr>
+      <tr><td data-en="API key inspection" data-pt="Inspeção de chaves de API">API key inspection</td><td data-en="direct &lt;code&gt;curl&lt;/code&gt; against introspection endpoints (Mapbox &lt;code&gt;/tokens/v2&lt;/code&gt;)" data-pt="&lt;code&gt;curl&lt;/code&gt; direto contra endpoints de introspecção (Mapbox &lt;code&gt;/tokens/v2&lt;/code&gt;)">direct <code>curl</code> against introspection endpoints (Mapbox <code>/tokens/v2</code>)</td></tr>
     </table></div>
 
-    <h2>4. Achados</h2>
+    <h2 data-en="4. Findings" data-pt="4. Achados">4. Findings</h2>
 
-    <h3 id="f1">4.1 — IDOR em <code>profiles</code>: leitura de email de qualquer usuário</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-critical">Crítica</span> (LGPD — dado pessoal)</span><span><span class="k">CVSS 3.1</span><strong>6.4</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N</span></span></div>
-    <p>A tabela <code>profiles</code> do Supabase estava com Row Level Security frouxo, permitindo que qualquer usuário autenticado lesse o email de qualquer outro usuário, bastando conhecer o UUID.</p>
-    <p><strong>Reprodução:</strong></p>
+    <h3 id="f1" data-en="4.1 — IDOR in &lt;code&gt;profiles&lt;/code&gt;: email disclosure of any user" data-pt="4.1 — IDOR em &lt;code&gt;profiles&lt;/code&gt;: leitura de email de qualquer usuário">4.1 — IDOR in <code>profiles</code>: email disclosure of any user</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-critical" data-en="Critical" data-pt="Crítica">Critical</span> <span data-en="(LGPD — personal data)" data-pt="(LGPD — dado pessoal)">(LGPD — personal data)</span></span><span><span class="k">CVSS 3.1</span><strong>6.4</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N</span></span></div>
+    <p data-en="The &lt;code&gt;profiles&lt;/code&gt; table in Supabase had loose Row Level Security, allowing any authenticated user to read the email of any other user, simply by knowing the UUID." data-pt="A tabela &lt;code&gt;profiles&lt;/code&gt; do Supabase estava com Row Level Security frouxo, permitindo que qualquer usuário autenticado lesse o email de qualquer outro usuário, bastando conhecer o UUID.">
+      The <code>profiles</code> table in Supabase had loose Row Level Security, allowing any authenticated user to read the email of any other user, simply by knowing the UUID.
+    </p>
+    <p><strong data-en="Reproduction:" data-pt="Reprodução:">Reproduction:</strong></p>
     <pre><code>curl -s "https://&lt;project&gt;.supabase.co/rest/v1/profiles?select=email&id=eq.&lt;target_uuid&gt;" \
   -H "apikey: &lt;publishable_key&gt;" \
   -H "Authorization: Bearer &lt;access_token&gt;"</code></pre>
-    <p><strong>Resultado:</strong> <code>[{"email": "&lt;redacted&gt;"}]</code> — email real de outro usuário.</p>
-    <p><strong>Impacto:</strong> Enumeração de emails + correlação com nome público (via ranking) = doxxing trivial. Sob LGPD, configura tratamento inadequado de dado pessoal.</p>
-    <p class="finding-status"><strong>Status:</strong> Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09, sem confirmação específica deste item. Não reverificado.</p>
+    <p><strong data-en="Result:" data-pt="Resultado:">Result:</strong> <code>[{"email": "&lt;redacted&gt;"}]</code> <span data-en="— real email of another user." data-pt="— email real de outro usuário.">— real email of another user.</span></p>
+    <p><span data-en="&lt;strong&gt;Impact:&lt;/strong&gt; Email enumeration + correlation with public name (via ranking) = trivial doxxing. Under LGPD, this constitutes inadequate handling of personal data." data-pt="&lt;strong&gt;Impacto:&lt;/strong&gt; Enumeração de emails + correlação com nome público (via ranking) = doxxing trivial. Sob LGPD, configura tratamento inadequado de dado pessoal."><strong>Impact:</strong> Email enumeration + correlation with public name (via ranking) = trivial doxxing. Under LGPD, this constitutes inadequate handling of personal data.</span></p>
+    <p class="finding-status"><strong>Status:</strong> <span data-en="Reported on 09/21. Developer stated some findings were fixed on 09/24, without specific confirmation of this item. Not re-verified." data-pt="Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09, sem confirmação específica deste item. Não reverificado.">Reported on 09/21. Developer stated some findings were fixed on 09/24, without specific confirmation of this item. Not re-verified.</span></p>
 
-    <h3 id="f2">4.2 — Exposição excessiva de trajeto GPS via API</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-high">Alta</span> (LGPD — dado sensível, localização)</span><span><span class="k">CVSS 3.1</span><strong>5.9</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N</span></span></div>
-    <p>A tabela <code>activities</code> retorna o <code>path.coordinates</code> (trajeto GPS completo) para qualquer usuário autenticado, mediante conhecimento do ID da atividade. A visibilidade de atividades entre usuários é uma feature intencional do app, porém a API expõe o trajeto completo — não apenas dados agregados.</p>
-    <p><strong>Reprodução:</strong></p>
+    <h3 id="f2" data-en="4.2 — Excessive GPS track exposure via API" data-pt="4.2 — Exposição excessiva de trajeto GPS via API">4.2 — Excessive GPS track exposure via API</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-high" data-en="High" data-pt="Alta">High</span> <span data-en="(LGPD — sensitive data, location)" data-pt="(LGPD — dado sensível, localização)">(LGPD — sensitive data, location)</span></span><span><span class="k">CVSS 3.1</span><strong>5.9</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N</span></span></div>
+    <p data-en="The &lt;code&gt;activities&lt;/code&gt; table returns &lt;code&gt;path.coordinates&lt;/code&gt; (full GPS track) to any authenticated user, upon knowing the activity ID. Activity visibility between users is an intentional app feature, but the API exposes the full track — not just aggregated data." data-pt="A tabela &lt;code&gt;activities&lt;/code&gt; retorna o &lt;code&gt;path.coordinates&lt;/code&gt; (trajeto GPS completo) para qualquer usuário autenticado, mediante conhecimento do ID da atividade. A visibilidade de atividades entre usuários é uma feature intencional do app, porém a API expõe o trajeto completo — não apenas dados agregados.">
+      The <code>activities</code> table returns <code>path.coordinates</code> (full GPS track) to any authenticated user, upon knowing the activity ID. Activity visibility between users is an intentional app feature, but the API exposes the full track — not just aggregated data.
+    </p>
+    <p><strong data-en="Reproduction:" data-pt="Reprodução:">Reproduction:</strong></p>
     <pre><code>curl -s "https://&lt;project&gt;.supabase.co/rest/v1/activities?select=*&id=eq.&lt;activity_uuid&gt;" \
   -H "apikey: &lt;publishable_key&gt;" \
   -H "Authorization: Bearer &lt;access_token&gt;"</code></pre>
-    <p><strong>Impacto:</strong> Ainda que a visibilidade seja intencional, o nível de detalhe exposto permite inferir localização de residência, trabalho e rotina de treino a partir do trajeto completo. A distinção correta aqui não é IDOR clássico, mas <em>excessive data exposure</em>.</p>
-    <p><strong>Recomendação:</strong> Expor apenas dados agregados (distância, pace médio, horário) na API pública de atividades, mantendo o trajeto completo acessível somente ao próprio usuário ou mediante consentimento explícito.</p>
-    <p class="finding-status"><strong>Status:</strong> Reportado em 21/09. Desenvolvedor confirmou que a visibilidade é intencional, mas reconheceu necessidade de revisão de escopo. Pendente.</p>
+    <p data-en="&lt;strong&gt;Impact:&lt;/strong&gt; Although visibility is intentional, the level of detail exposed allows inferring home and work location, as well as training routine, from the full track. The correct distinction here is not classic IDOR, but &lt;em&gt;excessive data exposure&lt;/em&gt;." data-pt="&lt;strong&gt;Impacto:&lt;/strong&gt; Ainda que a visibilidade seja intencional, o nível de detalhe exposto permite inferir localização de residência, trabalho e rotina de treino a partir do trajeto completo. A distinção correta aqui não é IDOR clássico, mas &lt;em&gt;excessive data exposure&lt;/em&gt;.">
+      <strong>Impact:</strong> Although visibility is intentional, the level of detail exposed allows inferring home and work location, as well as training routine, from the full track. The correct distinction here is not classic IDOR, but <em>excessive data exposure</em>.
+    </p>
+    <p data-en="&lt;strong&gt;Recommendation:&lt;/strong&gt; Expose only aggregated data (distance, average pace, timestamp) in the public activities API, keeping the full track accessible only to the owner or upon explicit consent." data-pt="&lt;strong&gt;Recomendação:&lt;/strong&gt; Expor apenas dados agregados (distância, pace médio, horário) na API pública de atividades, mantendo o trajeto completo acessível somente ao próprio usuário ou mediante consentimento explícito.">
+      <strong>Recommendation:</strong> Expose only aggregated data (distance, average pace, timestamp) in the public activities API, keeping the full track accessible only to the owner or upon explicit consent.
+    </p>
+    <p class="finding-status"><strong>Status:</strong> <span data-en="Reported on 09/21. Developer confirmed that visibility is intentional but acknowledged the need for a scope review. Pending." data-pt="Reportado em 21/09. Desenvolvedor confirmou que a visibilidade é intencional, mas reconheceu necessidade de revisão de escopo. Pendente.">Reported on 09/21. Developer confirmed that visibility is intentional but acknowledged the need for a scope review. Pending.</span></p>
 
-    <h3 id="f3">4.3 — Enumeração em massa de usuários</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-critical">Crítica</span></span><span><span class="k">CVSS 3.1</span><strong>6.4</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N</span></span></div>
-    <p>A query <code>profiles?select=id,name</code> sem filtro retornava toda a base de usuários, sem paginação obrigatória nem restrição por usuário autenticado.</p>
-    <p><strong>Reprodução:</strong></p>
+    <h3 id="f3" data-en="4.3 — Mass user enumeration" data-pt="4.3 — Enumeração em massa de usuários">4.3 — Mass user enumeration</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-critical" data-en="Critical" data-pt="Crítica">Critical</span></span><span><span class="k">CVSS 3.1</span><strong>6.4</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N</span></span></div>
+    <p data-en="The &lt;code&gt;profiles?select=id,name&lt;/code&gt; query, unfiltered, returned the entire user base, with no mandatory pagination or restriction per authenticated user." data-pt="A query &lt;code&gt;profiles?select=id,name&lt;/code&gt; sem filtro retornava toda a base de usuários, sem paginação obrigatória nem restrição por usuário autenticado.">
+      The <code>profiles?select=id,name</code> query, unfiltered, returned the entire user base, with no mandatory pagination or restriction per authenticated user.
+    </p>
+    <p><strong data-en="Reproduction:" data-pt="Reprodução:">Reproduction:</strong></p>
     <pre><code>curl -s "https://&lt;project&gt;.supabase.co/rest/v1/profiles?select=id,name&limit=5" \
   -H "apikey: &lt;publishable_key&gt;" \
   -H "Authorization: Bearer &lt;access_token&gt;"</code></pre>
-    <p><strong>Resultado:</strong> Lista de usuários reais (nomes + UUIDs).</p>
-    <p><strong>Impacto:</strong> Base completa de usuários enumerável. Combinado com 4.1, forma um pipeline direto de enumeração → coleta de emails.</p>
-    <p class="finding-status"><strong>Status:</strong> Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09, sem confirmação específica deste item. Não reverificado.</p>
+    <p><strong data-en="Result:" data-pt="Resultado:">Result:</strong> <span data-en="List of real users (names + UUIDs)." data-pt="Lista de usuários reais (nomes + UUIDs).">List of real users (names + UUIDs).</span></p>
+    <p data-en="&lt;strong&gt;Impact:&lt;/strong&gt; Complete user base is enumerable. Combined with 4.1, it forms a direct pipeline of enumeration → email harvesting." data-pt="&lt;strong&gt;Impacto:&lt;/strong&gt; Base completa de usuários enumerável. Combinado com 4.1, forma um pipeline direto de enumeração → coleta de emails.">
+      <strong>Impact:</strong> Complete user base is enumerable. Combined with 4.1, it forms a direct pipeline of enumeration → email harvesting.
+    </p>
+    <p class="finding-status"><strong>Status:</strong> <span data-en="Reported on 09/21. Developer stated some findings were fixed on 09/24, without specific confirmation of this item. Not re-verified." data-pt="Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09, sem confirmação específica deste item. Não reverificado.">Reported on 09/21. Developer stated some findings were fixed on 09/24, without specific confirmation of this item. Not re-verified.</span></p>
 
-    <h3 id="f4">4.4 — PATCH em colunas sensíveis de profiles (privilege escalation)</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-high">Alta</span> (potencialmente Crítica se consumida por RPC/Edge Function)</span><span><span class="k">CVSS 3.1</span><strong>6.5</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N</span></span></div>
-    <p>A tabela <code>profiles</code> aceitava PATCH em colunas sensíveis via API REST (<code>is_admin</code>, <code>total_points</code>, <code>total_conquests</code>, <code>total_area</code>, <code>territories_owned</code>). A escrita foi aceita (HTTP 200) mesmo sem a UI renderizar essas colunas.</p>
-    <p><strong>Reprodução:</strong></p>
+    <h3 id="f4" data-en="4.4 — PATCH on sensitive columns of profiles (privilege escalation)" data-pt="4.4 — PATCH em colunas sensíveis de profiles (privilege escalation)">4.4 — PATCH on sensitive columns of profiles (privilege escalation)</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-high" data-en="High" data-pt="Alta">High</span> <span data-en="(potentially Critical if consumed by RPC/Edge Function)" data-pt="(potencialmente Crítica se consumida por RPC/Edge Function)">(potentially Critical if consumed by RPC/Edge Function)</span></span><span><span class="k">CVSS 3.1</span><strong>6.5</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N</span></span></div>
+    <p data-en="The &lt;code&gt;profiles&lt;/code&gt; table accepted PATCH on sensitive columns via REST API (&lt;code&gt;is_admin&lt;/code&gt;, &lt;code&gt;total_points&lt;/code&gt;, &lt;code&gt;total_conquests&lt;/code&gt;, &lt;code&gt;total_area&lt;/code&gt;, &lt;code&gt;territories_owned&lt;/code&gt;). The write was accepted (HTTP 200) even though the UI does not render those columns." data-pt="A tabela &lt;code&gt;profiles&lt;/code&gt; aceitava PATCH em colunas sensíveis via API REST (&lt;code&gt;is_admin&lt;/code&gt;, &lt;code&gt;total_points&lt;/code&gt;, &lt;code&gt;total_conquests&lt;/code&gt;, &lt;code&gt;total_area&lt;/code&gt;, &lt;code&gt;territories_owned&lt;/code&gt;). A escrita foi aceita (HTTP 200) mesmo sem a UI renderizar essas colunas.">
+      The <code>profiles</code> table accepted PATCH on sensitive columns via REST API (<code>is_admin</code>, <code>total_points</code>, <code>total_conquests</code>, <code>total_area</code>, <code>territories_owned</code>). The write was accepted (HTTP 200) even though the UI does not render those columns.
+    </p>
+    <p><strong data-en="Reproduction:" data-pt="Reprodução:">Reproduction:</strong></p>
     <pre><code>curl -s -X PATCH "https://&lt;project&gt;.supabase.co/rest/v1/profiles?id=eq.&lt;self_uuid&gt;" \
   -H "apikey: &lt;publishable_key&gt;" \
   -H "Authorization: Bearer &lt;access_token&gt;" \
   -H "Content-Type: application/json" \
   -H "Prefer: return=representation" \
   -d '{"is_admin": true, "total_points": 999999}'</code></pre>
-    <p><strong>Resultado:</strong> 200 — colunas alteradas.</p>
-    <p><strong>Impacto:</strong> As stats são computadas por RPC e a UI não as exibe, mas a escrita é aceita no banco. Se qualquer RPC/Edge Function consultar <code>is_admin</code> para autorização, é privilege escalation direta.</p>
-    <p class="finding-status"><strong>Status:</strong> Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09.</p>
+    <p><strong data-en="Result:" data-pt="Resultado:">Result:</strong> <span data-en="200 — columns modified." data-pt="200 — colunas alteradas.">200 — columns modified.</span></p>
+    <p data-en="&lt;strong&gt;Impact:&lt;/strong&gt; The stats are computed by RPC and the UI does not display them, but the write is accepted in the database. If any RPC/Edge Function consults &lt;code&gt;is_admin&lt;/code&gt; for authorization, this is direct privilege escalation." data-pt="&lt;strong&gt;Impacto:&lt;/strong&gt; As stats são computadas por RPC e a UI não as exibe, mas a escrita é aceita no banco. Se qualquer RPC/Edge Function consultar &lt;code&gt;is_admin&lt;/code&gt; para autorização, é privilege escalation direta.">
+      <strong>Impact:</strong> The stats are computed by RPC and the UI does not display them, but the write is accepted in the database. If any RPC/Edge Function consults <code>is_admin</code> for authorization, this is direct privilege escalation.
+    </p>
+    <p class="finding-status"><strong>Status:</strong> <span data-en="Reported on 09/21. Developer stated some findings were fixed on 09/24." data-pt="Reportado em 21/09. Desenvolvedor informou ter corrigido parte dos achados em 24/09.">Reported on 09/21. Developer stated some findings were fixed on 09/24.</span></p>
 
-    <h3 id="f5">4.5 — Importação de GPX aceita datas futuras</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-high">Alta</span></span><span><span class="k">CVSS 3.1</span><strong>6.5</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N</span></span></div>
-    <p>A funcionalidade de importação de GPX aceitava arquivos com timestamp no futuro, sem validação server-side. Testei com um ano de antecedência e o território foi criado, com Stars creditados.</p>
-    <p><strong>Por que é mais grave do que parece:</strong> O app resolve conflitos de território pela atividade mais recente (se eu corri ontem e você correu hoje, o território é seu). Um GPX com data futura "reserva" o território indefinidamente — nenhuma corrida real consegue sobrescrevê-lo. Isso nega acesso legítimo ao jogo.</p>
-    <p class="finding-status"><strong>Status:</strong> Reportado em 14/09. Desenvolvedor afirmou já ter tentado corrigir anteriormente, mas a validação ainda estava ausente na ocasião do teste.</p>
+    <h3 id="f5" data-en="4.5 — GPX import accepts future dates" data-pt="4.5 — Importação de GPX aceita datas futuras">4.5 — GPX import accepts future dates</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-high" data-en="High" data-pt="Alta">High</span></span><span><span class="k">CVSS 3.1</span><strong>6.5</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N</span></span></div>
+    <p data-en="The GPX import feature accepted files with a future timestamp, without server-side validation. I tested with a one-year lead time and the territory was created, with Stars credited." data-pt="A funcionalidade de importação de GPX aceitava arquivos com timestamp no futuro, sem validação server-side. Testei com um ano de antecedência e o território foi criado, com Stars creditados.">
+      The GPX import feature accepted files with a future timestamp, without server-side validation. I tested with a one-year lead time and the territory was created, with Stars credited.
+    </p>
+    <p data-en="&lt;strong&gt;Why this is more serious than it seems:&lt;/strong&gt; The app resolves territory conflicts by the most recent activity (if I ran yesterday and you ran today, the territory is yours). A GPX with a future date &quot;reserves&quot; the territory indefinitely — no real run can ever overwrite it. This denies legitimate access to the game." data-pt="&lt;strong&gt;Por que é mais grave do que parece:&lt;/strong&gt; O app resolve conflitos de território pela atividade mais recente (se eu corri ontem e você correu hoje, o território é seu). Um GPX com data futura &quot;reserva&quot; o território indefinidamente — nenhuma corrida real consegue sobrescrevê-lo. Isso nega acesso legítimo ao jogo.">
+      <strong>Why this is more serious than it seems:</strong> The app resolves territory conflicts by the most recent activity (if I ran yesterday and you ran today, the territory is yours). A GPX with a future date "reserves" the territory indefinitely — no real run can ever overwrite it. This denies legitimate access to the game.
+    </p>
+    <p class="finding-status"><strong>Status:</strong> <span data-en="Reported on 09/14. Developer stated they had previously attempted a fix, but validation was still missing at the time of testing." data-pt="Reportado em 14/09. Desenvolvedor afirmou já ter tentado corrigir anteriormente, mas a validação ainda estava ausente na ocasião do teste.">Reported on 09/14. Developer stated they had previously attempted a fix, but validation was still missing at the time of testing.</span></p>
 
-    <h3 id="f6">4.6 — Importação de GPX aceita coordenadas em oceano aberto</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-high">Alta</span></span><span><span class="k">CVSS 3.1</span><strong>6.5</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N</span></span></div>
-    <p>O servidor não valida se a atividade ocorreu em terra firme. Um GPX centrado em coordenada oceânica (ex: -23.5000, -42.5000, Atlântico Sul) foi aceito e criou território.</p>
-    <p><strong>Impacto:</strong> Ausência total de validação geoespacial no backend. Permite criação de territórios em áreas restritas, militares ou inacessíveis.</p>
-    <p class="finding-status"><strong>Status:</strong> Reportado em 14/09. Desenvolvedor questionou a viabilidade de validação completa, mas reconheceu o problema. Validações temporais e geoespaciais simples (bbox, land mask, delta T) são triviais de implementar.</p>
+    <h3 id="f6" data-en="4.6 — GPX import accepts open-ocean coordinates" data-pt="4.6 — Importação de GPX aceita coordenadas em oceano aberto">4.6 — GPX import accepts open-ocean coordinates</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-high" data-en="High" data-pt="Alta">High</span></span><span><span class="k">CVSS 3.1</span><strong>6.5</strong> <span class="vec">AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N</span></span></div>
+    <p data-en="The server does not validate whether the activity occurred on dry land. A GPX centered on an oceanic coordinate (e.g., -23.5000, -42.5000, South Atlantic) was accepted and created a territory." data-pt="O servidor não valida se a atividade ocorreu em terra firme. Um GPX centrado em coordenada oceânica (ex: -23.5000, -42.5000, Atlântico Sul) foi aceito e criou território.">
+      The server does not validate whether the activity occurred on dry land. A GPX centered on an oceanic coordinate (e.g., -23.5000, -42.5000, South Atlantic) was accepted and created a territory.
+    </p>
+    <p data-en="&lt;strong&gt;Impact:&lt;/strong&gt; Complete absence of geospatial validation on the backend. Allows creation of territories in restricted, military, or inaccessible areas." data-pt="&lt;strong&gt;Impacto:&lt;/strong&gt; Ausência total de validação geoespacial no backend. Permite criação de territórios em áreas restritas, militares ou inacessíveis.">
+      <strong>Impact:</strong> Complete absence of geospatial validation on the backend. Allows creation of territories in restricted, military, or inaccessible areas.
+    </p>
+    <p class="finding-status"><strong>Status:</strong> <span data-en="Reported on 09/14. Developer questioned the feasibility of full validation but acknowledged the issue. Simple temporal and geospatial validations (bbox, land mask, delta T) are trivial to implement." data-pt="Reportado em 14/09. Desenvolvedor questionou a viabilidade de validação completa, mas reconheceu o problema. Validações temporais e geoespaciais simples (bbox, land mask, delta T) são triviais de implementar.">Reported on 09/14. Developer questioned the feasibility of full validation but acknowledged the issue. Simple temporal and geospatial validations (bbox, land mask, delta T) are trivial to implement.</span></p>
 
-    <h3 id="f7">4.7 — Enumeração de usuários via tela de cadastro</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-medium">Média</span></span><span><span class="k">CVSS 3.1</span><strong>5.3</strong> <span class="vec">AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N</span></span></div>
-    <p>A tela de cadastro retorna mensagem distinta ("Esse e-mail já está registrado") quando o email já existe, permitindo enumeração da base de usuários. Pré-condição para credential stuffing.</p>
+    <h3 id="f7" data-en="4.7 — User enumeration via signup screen" data-pt="4.7 — Enumeração de usuários via tela de cadastro">4.7 — User enumeration via signup screen</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-medium" data-en="Medium" data-pt="Média">Medium</span></span><span><span class="k">CVSS 3.1</span><strong>5.3</strong> <span class="vec">AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N</span></span></div>
+    <p data-en="The signup screen returns a distinct message (&quot;This email is already registered&quot;) when the email already exists, allowing enumeration of the user base. Precondition for credential stuffing." data-pt="A tela de cadastro retorna mensagem distinta (&quot;Esse e-mail já está registrado&quot;) quando o email já existe, permitindo enumeração da base de usuários. Pré-condição para credential stuffing.">
+      The signup screen returns a distinct message ("This email is already registered") when the email already exists, allowing enumeration of the user base. Precondition for credential stuffing.
+    </p>
 
-    <h3 id="f8">4.8 — Secret token do Mapbox (sk.) exposto no bundle</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-medium">Média</span></span><span><span class="k">CVSS 3.1</span><strong>5.3</strong> <span class="vec">AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N</span></span></div>
-    <p>O arquivo <code>app.config.js</code> do APK expõe um secret token do Mapbox (<code>sk.eyJ1Ijoi...</code>) no campo <code>RNMAPBOX_MAPS_DOWNLOAD_TOKEN</code>. O token não possui escopos administrativos, mas permite abuso de quota e banda (download de tiles em loop na conta do desenvolvedor).</p>
+    <h3 id="f8" data-en="4.8 — Mapbox secret token (sk.) exposed in bundle" data-pt="4.8 — Secret token do Mapbox (sk.) exposto no bundle">4.8 — Mapbox secret token (sk.) exposed in bundle</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-medium" data-en="Medium" data-pt="Média">Medium</span></span><span><span class="k">CVSS 3.1</span><strong>5.3</strong> <span class="vec">AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N</span></span></div>
+    <p data-en="The APK's &lt;code&gt;app.config.js&lt;/code&gt; exposes a Mapbox secret token (&lt;code&gt;sk.eyJ1Ijoi...&lt;/code&gt;) in the &lt;code&gt;RNMAPBOX_MAPS_DOWNLOAD_TOKEN&lt;/code&gt; field. The token has no administrative scopes, but allows quota and bandwidth abuse (tile download loop on the developer's account)." data-pt="O arquivo &lt;code&gt;app.config.js&lt;/code&gt; do APK expõe um secret token do Mapbox (&lt;code&gt;sk.eyJ1Ijoi...&lt;/code&gt;) no campo &lt;code&gt;RNMAPBOX_MAPS_DOWNLOAD_TOKEN&lt;/code&gt;. O token não possui escopos administrativos, mas permite abuso de quota e banda (download de tiles em loop na conta do desenvolvedor).">
+      The APK's <code>app.config.js</code> exposes a Mapbox secret token (<code>sk.eyJ1Ijoi...</code>) in the <code>RNMAPBOX_MAPS_DOWNLOAD_TOKEN</code> field. The token has no administrative scopes, but allows quota and bandwidth abuse (tile download loop on the developer's account).
+    </p>
 
-    <h3 id="f9">4.9 — NSAllowsArbitraryLoads: true no infoPlist do iOS</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-low">Baixa</span> / hardening</span></div>
-    <p>O <code>app.config.js</code> define <code>NSAllowsArbitraryLoads: true</code> dentro de <code>ios.infoPlist</code>, desabilitando globalmente o App Transport Security (ATS) no iOS. Amplia superfície de MITM em iOS, mesmo com certificate pinning ativo em camadas superiores.</p>
+    <h3 id="f9" data-en="4.9 — NSAllowsArbitraryLoads: true in iOS infoPlist" data-pt="4.9 — NSAllowsArbitraryLoads: true no infoPlist do iOS">4.9 — NSAllowsArbitraryLoads: true in iOS infoPlist</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-low" data-en="Low" data-pt="Baixa">Low</span> <span data-en="/ hardening" data-pt="/ hardening">/ hardening</span></span></div>
+    <p data-en="The &lt;code&gt;app.config.js&lt;/code&gt; sets &lt;code&gt;NSAllowsArbitraryLoads: true&lt;/code&gt; inside &lt;code&gt;ios.infoPlist&lt;/code&gt;, globally disabling App Transport Security (ATS) on iOS. Expands the MITM surface on iOS, even with certificate pinning active at higher layers." data-pt="O &lt;code&gt;app.config.js&lt;/code&gt; define &lt;code&gt;NSAllowsArbitraryLoads: true&lt;/code&gt; dentro de &lt;code&gt;ios.infoPlist&lt;/code&gt;, desabilitando globalmente o App Transport Security (ATS) no iOS. Amplia superfície de MITM em iOS, mesmo com certificate pinning ativo em camadas superiores.">
+      The <code>app.config.js</code> sets <code>NSAllowsArbitraryLoads: true</code> inside <code>ios.infoPlist</code>, globally disabling App Transport Security (ATS) on iOS. Expands the MITM surface on iOS, even with certificate pinning active at higher layers.
+    </p>
 
-    <h3 id="f10">4.10 — Ausência de divulgação de SDKs de rastreamento</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge badge-high">Alta</span> (LGPD — transparência e finalidade)</span></div>
-    <p>O bundle do app inclui SDKs de analytics/rastreamento de múltiplos fornecedores (Firebase, Mapbox Telemetry, RevenueCat e outros). A política de privacidade disponível não detalha quais SDKs coletam dados, com qual finalidade e sob qual base legal. Potencial violação dos Art. 6º e Art. 9º da LGPD.</p>
+    <h3 id="f10" data-en="4.10 — Undisclosed tracking SDKs" data-pt="4.10 — Ausência de divulgação de SDKs de rastreamento">4.10 — Undisclosed tracking SDKs</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge badge-high" data-en="High" data-pt="Alta">High</span> <span data-en="(LGPD — transparency and purpose)" data-pt="(LGPD — transparência e finalidade)">(LGPD — transparency and purpose)</span></span></div>
+    <p data-en="The app bundle includes analytics/tracking SDKs from multiple vendors (Firebase, Mapbox Telemetry, RevenueCat, and others). The available privacy policy does not detail which SDKs collect data, for what purpose, and under which legal basis. Potential violation of Art. 6 and Art. 9 of the LGPD." data-pt="O bundle do app inclui SDKs de analytics/rastreamento de múltiplos fornecedores (Firebase, Mapbox Telemetry, RevenueCat e outros). A política de privacidade disponível não detalha quais SDKs coletam dados, com qual finalidade e sob qual base legal. Potencial violação dos Art. 6º e Art. 9º da LGPD.">
+      The app bundle includes analytics/tracking SDKs from multiple vendors (Firebase, Mapbox Telemetry, RevenueCat, and others). The available privacy policy does not detail which SDKs collect data, for what purpose, and under which legal basis. Potential violation of Art. 6 and Art. 9 of the LGPD.
+    </p>
 
-    <h3 id="f11">4.11 — Observação: ausência de validação de distância máxima (não testado)</h3>
-    <div class="finding-meta"><span><span class="k">Severidade</span><span class="badge" style="background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border);">Informativa</span></span></div>
-    <p>Considerei importar um GPX com distância extremamente alta para verificar se o servidor impõe limite. Não executei porque, na ausência de validação (comprovada nos achados 4.5 e 4.6), um trajeto dessa magnitude poderia instabilizar dispositivos antigos ou sobrecarregar o servidor durante o processamento de geometria. Reportei como suspeita técnica sem executar.</p>
+    <h3 id="f11" data-en="4.11 — Observation: missing maximum-distance validation (not tested)" data-pt="4.11 — Observação: ausência de validação de distância máxima (não testado)">4.11 — Observation: missing maximum-distance validation (not tested)</h3>
+    <div class="finding-meta"><span><span class="k" data-en="Severity" data-pt="Severidade">Severity</span> <span class="badge" style="background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border);" data-en="Informational" data-pt="Informativa">Informational</span></span></div>
+    <p data-en="I considered importing a GPX with an extremely high distance to check whether the server enforces a limit. I did not execute it because, in the absence of validation (proven in findings 4.5 and 4.6), a track of that magnitude could destabilize older devices or overload the server during geometry processing. I reported it as a technical suspicion without executing it." data-pt="Considerei importar um GPX com distância extremamente alta para verificar se o servidor impõe limite. Não executei porque, na ausência de validação (comprovada nos achados 4.5 e 4.6), um trajeto dessa magnitude poderia instabilizar dispositivos antigos ou sobrecarregar o servidor durante o processamento de geometria. Reportei como suspeita técnica sem executar.">
+      I considered importing a GPX with an extremely high distance to check whether the server enforces a limit. I did not execute it because, in the absence of validation (proven in findings 4.5 and 4.6), a track of that magnitude could destabilize older devices or overload the server during geometry processing. I reported it as a technical suspicion without executing it.
+    </p>
 
-    <h2>5. Boa prática observada</h2>
+    <h2 data-en="5. Good practices observed" data-pt="5. Boa prática observada">5. Good practices observed</h2>
     <ul>
-      <li><strong>Storage do Supabase protegido:</strong> o bucket <code>activity-imports</code> está corretamente isolado por usuário.</li>
-      <li><strong>Detecção de manipulação local:</strong> o app detecta alteração do flag local <code>pro_enabled</code> e força logout. A validação real do plano é server-side.</li>
-      <li><strong>Anti-cheat parcial:</strong> o sistema detecta anomalias óbvias (saltos geográficos, paces impossíveis) e cobriu um incidente anterior. Cobre razoavelmente o fluxo de corrida, mas não o fluxo de importação GPX.</li>
-      <li><strong>Rate limit em reset de senha:</strong> o código de 8 dígitos tem cooldown de 1 minuto entre tentativas, inviabilizando brute force.</li>
-      <li><strong>Mapbox:</strong> o <code>sk.</code> exposto está corretamente restrito (sem escopos administrativos).</li>
-      <li><strong>Backend manual:</strong> o desenvolvedor implementou manualmente a lógica de backend, RPCs e proteções críticas. As falhas de RLS encontradas são pontuais e de configuração, não de arquitetura.</li>
+      <li data-en="&lt;strong&gt;Supabase storage protected:&lt;/strong&gt; the &lt;code&gt;activity-imports&lt;/code&gt; bucket is correctly isolated per user." data-pt="&lt;strong&gt;Storage do Supabase protegido:&lt;/strong&gt; o bucket &lt;code&gt;activity-imports&lt;/code&gt; está corretamente isolado por usuário."><strong>Supabase storage protected:</strong> the <code>activity-imports</code> bucket is correctly isolated per user.</li>
+      <li data-en="&lt;strong&gt;Local tampering detection:&lt;/strong&gt; the app detects modification of the local &lt;code&gt;pro_enabled&lt;/code&gt; flag and forces logout. Actual plan validation is server-side." data-pt="&lt;strong&gt;Detecção de manipulação local:&lt;/strong&gt; o app detecta alteração do flag local &lt;code&gt;pro_enabled&lt;/code&gt; e força logout. A validação real do plano é server-side."><strong>Local tampering detection:</strong> the app detects modification of the local <code>pro_enabled</code> flag and forces logout. Actual plan validation is server-side.</li>
+      <li data-en="&lt;strong&gt;Partial anti-cheat:&lt;/strong&gt; the system detects obvious anomalies (geographic jumps, impossible paces) and covered a previous incident. It reasonably covers the run flow, but not the GPX import flow." data-pt="&lt;strong&gt;Anti-cheat parcial:&lt;/strong&gt; o sistema detecta anomalias óbvias (saltos geográficos, paces impossíveis) e cobriu um incidente anterior. Cobre razoavelmente o fluxo de corrida, mas não o fluxo de importação GPX."><strong>Partial anti-cheat:</strong> the system detects obvious anomalies (geographic jumps, impossible paces) and covered a previous incident. It reasonably covers the run flow, but not the GPX import flow.</li>
+      <li data-en="&lt;strong&gt;Rate limit on password reset:&lt;/strong&gt; the 8-digit code has a 1-minute cooldown between attempts, making brute force infeasible." data-pt="&lt;strong&gt;Rate limit em reset de senha:&lt;/strong&gt; o código de 8 dígitos tem cooldown de 1 minuto entre tentativas, inviabilizando brute force."><strong>Rate limit on password reset:</strong> the 8-digit code has a 1-minute cooldown between attempts, making brute force infeasible.</li>
+      <li data-en="&lt;strong&gt;Mapbox:&lt;/strong&gt; the exposed &lt;code&gt;sk.&lt;/code&gt; token is correctly restricted (no administrative scopes)." data-pt="&lt;strong&gt;Mapbox:&lt;/strong&gt; o &lt;code&gt;sk.&lt;/code&gt; exposto está corretamente restrito (sem escopos administrativos)."><strong>Mapbox:</strong> the exposed <code>sk.</code> token is correctly restricted (no administrative scopes).</li>
+      <li data-en="&lt;strong&gt;Manual backend:&lt;/strong&gt; the developer manually implemented the backend logic, RPCs, and critical protections. The RLS failures found are punctual and configuration-related, not architectural." data-pt="&lt;strong&gt;Backend manual:&lt;/strong&gt; o desenvolvedor implementou manualmente a lógica de backend, RPCs e proteções críticas. As falhas de RLS encontradas são pontuais e de configuração, não de arquitetura."><strong>Manual backend:</strong> the developer manually implemented the backend logic, RPCs, and critical protections. The RLS failures found are punctual and configuration-related, not architectural.</li>
     </ul>
 
-    <h2>6. Conclusão</h2>
-    <p>
-      O Astrum tem uma base de segurança razoável em pontos específicos, mas apresenta falhas de configuração em tabelas específicas: RLS mal configurado em tabelas com dados pessoais, aceitação de PATCH em colunas de autorização, ausência de validação server-side na importação de GPX, e lacunas de compliance sob LGPD.
+    <h2 data-en="6. Conclusion" data-pt="6. Conclusão">6. Conclusion</h2>
+    <p data-en="Astrum has a reasonable security baseline in specific areas, but presents configuration flaws in specific tables: misconfigured RLS on tables with personal data, acceptance of PATCH on authorization columns, absence of server-side validation on GPX import, and LGPD compliance gaps." data-pt="O Astrum tem uma base de segurança razoável em pontos específicos, mas apresenta falhas de configuração em tabelas específicas: RLS mal configurado em tabelas com dados pessoais, aceitação de PATCH em colunas de autorização, ausência de validação server-side na importação de GPX, e lacunas de compliance sob LGPD.">
+      Astrum has a reasonable security baseline in specific areas, but presents configuration flaws in specific tables: misconfigured RLS on tables with personal data, acceptance of PATCH on authorization columns, absence of server-side validation on GPX import, and LGPD compliance gaps.
     </p>
-    <p>
-      Os achados mais graves — leitura de email de qualquer usuário e enumeração em massa da base — foram reportados imediatamente ao desenvolvedor, com scripts de reprodução e recomendações de correção. O processo completo está documentado e disponível para discussão técnica.
+    <p data-en="The most serious findings — email disclosure of any user and mass enumeration of the user base — were reported immediately to the developer, with reproduction scripts and remediation recommendations. The entire process is documented and available for technical discussion." data-pt="Os achados mais graves — leitura de email de qualquer usuário e enumeração em massa da base — foram reportados imediatamente ao desenvolvedor, com scripts de reprodução e recomendações de correção. O processo completo está documentado e disponível para discussão técnica.">
+      The most serious findings — email disclosure of any user and mass enumeration of the user base — were reported immediately to the developer, with reproduction scripts and remediation recommendations. The entire process is documented and available for technical discussion.
     </p>
 
-    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-3); font-style: italic;">
-      Este relatório foi elaborado de forma independente, com autorização explícita do desenvolvedor. Nenhum dado de usuário real está incluído. Nenhuma informação foi divulgada publicamente antes da correção.
+    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-3); font-style: italic;" data-en="This report was produced independently, with explicit authorization from the developer. No real user data is included. No information was publicly disclosed prior to remediation." data-pt="Este relatório foi elaborado de forma independente, com autorização explícita do desenvolvedor. Nenhum dado de usuário real está incluído. Nenhuma informação foi divulgada publicamente antes da correção.">
+      This report was produced independently, with explicit authorization from the developer. No real user data is included. No information was publicly disclosed prior to remediation.
     </p>
 
   </main>
@@ -250,7 +346,7 @@
     </div>
   </footer>
 
-  <a href="#top" class="to-top" id="to-top" aria-label="Voltar ao topo"><span aria-hidden="true">&uarr;</span></a>
+  <a href="#top" class="to-top" id="to-top" aria-label="Back to top" data-en="Back to top" data-pt="Voltar ao topo"><span aria-hidden="true">&uarr;</span></a>
 
   <script>
     (function () {
@@ -261,6 +357,41 @@
         var on = function () { t.classList.toggle('show', window.scrollY > 900); };
         window.addEventListener('scroll', on, { passive: true }); on();
       }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var root    = document.documentElement;
+      var buttons = document.querySelectorAll('.lang-switch [data-lang]');
+      var els     = document.querySelectorAll('[data-en]');
+
+      function applyLang(lang) {
+        var isPt = lang === 'pt';
+        root.setAttribute('lang', isPt ? 'pt-BR' : 'en');
+
+        els.forEach(function (el) {
+          var val = el.dataset[isPt ? 'pt' : 'en'];
+          if (val != null) el.innerHTML = val;
+        });
+
+        buttons.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+        });
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('lang'); } catch (e) {}
+
+      applyLang(saved === 'pt' ? 'pt' : 'en');
+
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var lang = b.dataset.lang;
+          try { localStorage.setItem('lang', lang); } catch (e) {}
+          applyLang(lang);
+        });
+      });
     })();
   </script>
 </body>
