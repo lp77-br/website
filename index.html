@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a0a0b">
   <meta name="author" content="Lucas (lp77.br)">
-  <meta name="description" content="Lucas (lp77.br / lp77 / ip77) — offensive security researcher specializing in Web and Mobile penetration testing. Responsible disclosure, CVEs, and open source work.">
+  <meta name="description" content="Lucas (lp77.br) — offensive security researcher specializing in Web and Mobile penetration testing. Responsible disclosure, CVEs, and open source work.">
   <meta name="keywords" content="lp77, LP77, lp77.br, lp77-br, lp77br, lp77 br, LP77 BR, ip77, IP77, ip77.br, ip77-br, Lucas security researcher, offensive security, penetration testing, responsible disclosure, CVE, Falcon, Astrum, Android security">
   <title>Lucas (lp77.br) — Offensive Security Researcher</title>
   <link rel="canonical" href="https://www.lp77.one/">
@@ -26,14 +26,12 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* ---------- Header layout safeguard (idempotente) ---------- */
     .header-nav {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    /* ---------- Language switch ---------- */
     .lang-switch {
       display: inline-flex;
       align-items: center;
@@ -63,7 +61,9 @@
       transition: background .18s ease, color .18s ease;
     }
 
-    .lang-switch button:hover { color: #cfd6e6; }
+    .lang-switch button:hover {
+      color: #cfd6e6;
+    }
 
     .lang-switch button:focus-visible {
       outline: 2px solid #7b9dff;
@@ -75,7 +75,6 @@
       color: #7b9dff;
     }
 
-    /* ---------- Mobile ---------- */
     @media (max-width: 640px) {
       .header-nav { gap: 8px; }
       .lang-switch button { padding: 6px 8px; min-width: 30px; font-size: 11px; }
@@ -146,7 +145,7 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-inner">
-      <p class="hero-eyebrow" data-en="Independent security research" data-pt="Pesquisa de segurança independente">Independent security research</p>
+      <p class="hero-eyebrow" data-en="Independent security researcher" data-pt="Pesquisador de segurança independente">Independent security researcher</p>
       <h1 class="hero-title" id="hero-title">Lucas <span>— lp77.br</span></h1>
       <p class="hero-sub" data-en="I find and responsibly disclose vulnerabilities in Web and Mobile apps, frameworks and APIs." data-pt="Encontro e divulgo de forma responsável vulnerabilidades em apps Web e Mobile, frameworks e APIs.">I find and responsibly disclose vulnerabilities in Web and Mobile
         apps, frameworks and APIs.</p>
@@ -307,7 +306,6 @@
       var saved = null;
       try { saved = localStorage.getItem('lang'); } catch (e) {}
 
-      // Padrão: inglês. Só vira PT se o usuário escolheu antes.
       applyLang(saved === 'pt' ? 'pt' : 'en');
 
       buttons.forEach(function (b) {
