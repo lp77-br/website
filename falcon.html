@@ -13,10 +13,126 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      flex: 0 0 auto;
+    }
+
+    .lang-switch button {
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      min-width: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #8b93a7;
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .lang-switch button:hover { color: #cfd6e6; }
+
+    .lang-switch button:focus-visible {
+      outline: 2px solid #7b9dff;
+      outline-offset: 2px;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      background: rgba(123, 157, 255, 0.16);
+      color: #7b9dff;
+    }
+
+    @media (max-width: 640px) {
+      .header-nav { gap: 8px; }
+      .lang-switch button { padding: 6px 8px; min-width: 30px; font-size: 11px; }
+    }
+
+    @media (max-width: 420px) {
+      .header-nav .btn-ghost { padding: 8px; gap: 0; font-size: 0; }
+      .header-nav .btn-ghost svg { width: 16px; height: 16px; }
+    }
+
+    .timeline {
+      list-style: none;
+      margin: 0 0 28px;
+      padding: 0;
+      counter-reset: step;
+    }
+
+    .timeline li {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      column-gap: 20px;
+      row-gap: 4px;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    }
+
+    .timeline li:last-child {
+      border-bottom: 0;
+    }
+
+    .timeline .t-date {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--text-3, #8b93a7);
+      white-space: nowrap;
+    }
+
+    .timeline .t-text {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-1, #e6e9f0);
+    }
+
+    .timeline .is-pending .t-date {
+      font-style: italic;
+      color: var(--text-3, #8b93a7);
+    }
+
+    .timeline .is-pending .t-text {
+      color: var(--text-2, #cfd6e6);
+      opacity: 0.75;
+    }
+
+    @media (max-width: 560px) {
+      .timeline li {
+        grid-template-columns: 1fr;
+        padding: 12px 0;
+      }
+
+      .timeline .t-date {
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+    }
+  </style>
 </head>
 <body id="top">
 
-  <a href="#main" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link" data-en="Skip to content" data-pt="Pular para o conteúdo">Skip to content</a>
 
   <header class="site-header">
     <div class="header-inner">
@@ -29,59 +145,72 @@
         </span>
         <div class="brand-text">
           <span>lp77.one</span>
-          <span class="online-status"><span class="dot" aria-hidden="true"></span><span>Offensive Security</span></span>
+          <span class="online-status"><span class="dot" aria-hidden="true"></span><span data-en="Offensive Security" data-pt="Segurança Ofensiva">Offensive Security</span></span>
         </div>
       </a>
       <nav class="header-nav" aria-label="Main navigation">
-        <a href="advisories.html" class="btn-ghost"><span aria-hidden="true">&larr;</span> Advisories</a>
+        <div class="lang-switch" role="group" aria-label="Language / Idioma">
+          <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="pt" lang="pt-BR" aria-pressed="false">PT</button>
+        </div>
+
+        <a href="advisories.html" class="btn-ghost"><span aria-hidden="true">&larr;</span> <span data-en="Advisories" data-pt="Advisórios">Advisories</span></a>
       </nav>
     </div>
   </header>
 
   <main class="report-container" id="main">
 
-    <p class="card-subtitle" style="margin-bottom: 12px;">Coordinated disclosure</p>
+    <p class="card-subtitle" style="margin-bottom: 12px;" data-en="Coordinated disclosure" data-pt="Divulgação coordenada">Coordinated disclosure</p>
     <h1>Falcon 4.4.0 — Security Report</h1>
-    <p class="report-meta-line">
+    <p class="report-meta-line" data-en="Reported privately to the Falcon maintainers. Technical details are withheld until a fix is released." data-pt="Reportado de forma privada aos mantenedores do Falcon. Detalhes técnicos ficam retidos até o lançamento de uma correção.">
       Reported privately to the Falcon maintainers. Technical details are withheld until a fix is released.
     </p>
 
     <div class="finding-status">
-      <strong>Under coordinated disclosure.</strong> The maintainers confirmed the report and will publish an advisory. The redacted sections below will be filled in once a fix is available.
+      <strong data-en="Under coordinated disclosure." data-pt="Sob divulgação coordenada.">Under coordinated disclosure.</strong>
+      <span data-en="The maintainers confirmed the report and will publish an advisory. The redacted sections below will be filled in once a fix is available." data-pt="Os mantenedores confirmaram o relatório e publicarão um avisório. As seções tarjadas abaixo serão preenchidas quando houver uma correção disponível.">The maintainers confirmed the report and will publish an advisory. The redacted sections below will be filled in once a fix is available.</span>
     </div>
 
-    <h2>Overview</h2>
+    <h2 data-en="Overview" data-pt="Visão geral">Overview</h2>
     <div class="table-wrap"><table>
-      <tr><th>Field</th><th>Value</th></tr>
-      <tr><td>Target</td><td>Falcon (Python web framework), version 4.4.0</td></tr>
-      <tr><td>Reporter</td><td>Lucas (lp77.br)</td></tr>
-      <tr><td>Reported</td><td>13 Nov 2026, privately to the maintainers</td></tr>
-      <tr><td>Status</td><td>Confirmed by the maintainers</td></tr>
-      <tr><td>Severity</td><td><span class="badge badge-high">High</span> CVSS 7.5, preliminary (maintainer-assessed)</td></tr>
-      <tr><td>CVE</td><td>Pending assignment</td></tr>
-      <tr><td>Credit</td><td>Agreed with the maintainers</td></tr>
-      <tr><td>Disclosure</td><td>Coordinated. Planned within 90 days of the report (by 11 Feb 2027), or earlier once a fix is released</td></tr>
+      <tr><th data-en="Field" data-pt="Campo">Field</th><th data-en="Value" data-pt="Valor">Value</th></tr>
+      <tr><td data-en="Target" data-pt="Alvo">Target</td><td data-en="Falcon (Python web framework), version 4.4.0" data-pt="Falcon (framework web em Python), versão 4.4.0">Falcon (Python web framework), version 4.4.0</td></tr>
+      <tr><td data-en="Reporter" data-pt="Pesquisador">Reporter</td><td data-en="Lucas (lp77.br)" data-pt="Lucas (lp77.br)">Lucas (lp77.br)</td></tr>
+      <tr><td data-en="Reported" data-pt="Reportado em">Reported</td><td data-en="Nov 13, 2026, privately to the maintainers" data-pt="13/11/2026, de forma privada aos mantenedores">Nov 13, 2026, privately to the maintainers</td></tr>
+      <tr><td data-en="Status" data-pt="Status">Status</td><td data-en="Confirmed by the maintainers" data-pt="Confirmado pelos mantenedores">Confirmed by the maintainers</td></tr>
+      <tr><td data-en="Severity" data-pt="Severidade">Severity</td><td><span class="badge badge-high" data-en="High" data-pt="Alta">High</span> <span data-en="CVSS 7.5, preliminary (maintainer-assessed)" data-pt="CVSS 7.5, preliminar (avaliado pelos mantenedores)">CVSS 7.5, preliminary (maintainer-assessed)</span></td></tr>
+      <tr><td>CVE</td><td data-en="Pending assignment" data-pt="Atribuição pendente">Pending assignment</td></tr>
+      <tr><td data-en="Credit" data-pt="Crédito">Credit</td><td data-en="Agreed with the maintainers" data-pt="Acordado com os mantenedores">Agreed with the maintainers</td></tr>
+      <tr><td data-en="Disclosure" data-pt="Divulgação">Disclosure</td><td data-en="Coordinated. Planned within 90 days of the report (by Feb 11, 2027), or earlier once a fix is released" data-pt="Coordenada. Prevista em até 90 dias do reporte (até 11/02/2027), ou antes quando houver uma correção disponível">Coordinated. Planned within 90 days of the report (by Feb 11, 2027), or earlier once a fix is released</td></tr>
     </table></div>
 
-    <h2>Timeline</h2>
-    <ol class="timeline"><li><span class="t-date">13 Nov 2026</span><span class="t-text">Reported privately to the Falcon maintainers.</span></li><li><span class="t-date">13 Nov 2026</span><span class="t-text">Receipt acknowledged by the maintainers.</span></li><li><span class="t-date">13 Nov 2026</span><span class="t-text">Report confirmed as valid. The maintainers will publish an advisory and credit the report.</span></li><li class="is-pending"><span class="t-date">Pending</span><span class="t-text">CVE ID assigned.</span></li><li class="is-pending"><span class="t-date">Pending</span><span class="t-text">Fix released.</span></li><li class="is-pending"><span class="t-date">Pending</span><span class="t-text">Public advisory and full details (planned within 90 days of the report, by 11 Feb 2027, or earlier once a fix ships).</span></li></ol>
+    <h2 data-en="Timeline" data-pt="Linha do tempo">Timeline</h2>
+    <ol class="timeline">
+      <li><span class="t-date" data-en="Nov 13, 2026" data-pt="13/11/2026">Nov 13, 2026</span><span class="t-text" data-en="Reported privately to the Falcon maintainers." data-pt="Reportado de forma privada aos mantenedores do Falcon.">Reported privately to the Falcon maintainers.</span></li>
+      <li><span class="t-date" data-en="Nov 13, 2026" data-pt="13/11/2026">Nov 13, 2026</span><span class="t-text" data-en="Receipt acknowledged by the maintainers." data-pt="Recebimento confirmado pelos mantenedores.">Receipt acknowledged by the maintainers.</span></li>
+      <li><span class="t-date" data-en="Nov 13, 2026" data-pt="13/11/2026">Nov 13, 2026</span><span class="t-text" data-en="Report confirmed as valid. The maintainers will publish an advisory and credit the report." data-pt="Relatório confirmado como válido. Os mantenedores publicarão um avisório e creditarão o reporte.">Report confirmed as valid. The maintainers will publish an advisory and credit the report.</span></li>
+      <li class="is-pending"><span class="t-date" data-en="Pending" data-pt="Pendente">Pending</span><span class="t-text" data-en="CVE ID assigned." data-pt="ID de CVE atribuído.">CVE ID assigned.</span></li>
+      <li class="is-pending"><span class="t-date" data-en="Pending" data-pt="Pendente">Pending</span><span class="t-text" data-en="Fix released." data-pt="Correção lançada.">Fix released.</span></li>
+      <li class="is-pending"><span class="t-date" data-en="Pending" data-pt="Pendente">Pending</span><span class="t-text" data-en="Public advisory and full details (planned within 90 days of the report, by Feb 11, 2027, or earlier once a fix ships)." data-pt="Avisório público e detalhes completos (previsto em até 90 dias do reporte, até 11/02/2027, ou antes quando a correção for lançada).">Public advisory and full details (planned within 90 days of the report, by Feb 11, 2027, or earlier once a fix ships).</span></li>
+    </ol>
 
-    <h2>Summary</h2>
-    <div class="redacted" role="img" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:96%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:58%"></span><p class="redact-note" aria-hidden="true">Withheld until a fix is released</p></div>
+    <h2 data-en="Summary" data-pt="Resumo">Summary</h2>
+    <div class="redacted" role="img" data-en-aria="Redacted: withheld until a fix is released" data-pt-aria="Tarjado: retido até o lançamento de uma correção" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:96%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:58%"></span><p class="redact-note" aria-hidden="true" data-en="Withheld until a fix is released" data-pt="Retido até o lançamento de uma correção">Withheld until a fix is released</p></div>
 
-    <h2>Technical details</h2>
-    <div class="redacted" role="img" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:92%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:97%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:71%"></span><p class="redact-note" aria-hidden="true">Withheld until a fix is released</p></div>
+    <h2 data-en="Technical details" data-pt="Detalhes técnicos">Technical details</h2>
+    <div class="redacted" role="img" data-en-aria="Redacted: withheld until a fix is released" data-pt-aria="Tarjado: retido até o lançamento de uma correção" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:92%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:97%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:71%"></span><p class="redact-note" aria-hidden="true" data-en="Withheld until a fix is released" data-pt="Retido até o lançamento de uma correção">Withheld until a fix is released</p></div>
 
-    <h2>Impact</h2>
-    <div class="redacted" role="img" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:98%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:64%"></span><p class="redact-note" aria-hidden="true">Withheld until a fix is released</p></div>
+    <h2 data-en="Impact" data-pt="Impacto">Impact</h2>
+    <div class="redacted" role="img" data-en-aria="Redacted: withheld until a fix is released" data-pt-aria="Tarjado: retido até o lançamento de uma correção" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:98%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:64%"></span><p class="redact-note" aria-hidden="true" data-en="Withheld until a fix is released" data-pt="Retido até o lançamento de uma correção">Withheld until a fix is released</p></div>
 
-    <h2>Reproduction</h2>
-    <div class="redacted" role="img" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:88%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:93%"></span><span class="redact-line" style="width:46%"></span><p class="redact-note" aria-hidden="true">Withheld until a fix is released</p></div>
+    <h2 data-en="Reproduction" data-pt="Reprodução">Reproduction</h2>
+    <div class="redacted" role="img" data-en-aria="Redacted: withheld until a fix is released" data-pt-aria="Tarjado: retido até o lançamento de uma correção" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:88%"></span><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:93%"></span><span class="redact-line" style="width:46%"></span><p class="redact-note" aria-hidden="true" data-en="Withheld until a fix is released" data-pt="Retido até o lançamento de uma correção">Withheld until a fix is released</p></div>
 
-    <h2>Remediation</h2>
-    <div class="redacted" role="img" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:95%"></span><span class="redact-line" style="width:52%"></span><p class="redact-note" aria-hidden="true">Withheld until a fix is released</p></div>
+    <h2 data-en="Remediation" data-pt="Remediação">Remediation</h2>
+    <div class="redacted" role="img" data-en-aria="Redacted: withheld until a fix is released" data-pt-aria="Tarjado: retido até o lançamento de uma correção" aria-label="Redacted: withheld until a fix is released"><span class="redact-line" style="width:100%"></span><span class="redact-line" style="width:95%"></span><span class="redact-line" style="width:52%"></span><p class="redact-note" aria-hidden="true" data-en="Withheld until a fix is released" data-pt="Retido até o lançamento de uma correção">Withheld until a fix is released</p></div>
 
-    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-3); font-style: italic;">
+    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-3); font-style: italic;" data-en="This page only shows information cleared for release before a fix is available. Redacted sections are placeholders and contain no hidden content. Nothing here was disclosed without coordination with the maintainers." data-pt="Esta página exibe apenas informações liberadas antes de uma correção disponível. As seções tarjadas são placeholders e não contêm conteúdo oculto. Nada aqui foi divulgado sem coordenação com os mantenedores.">
       This page only shows information cleared for release before a fix is available. Redacted sections are placeholders and contain no hidden content. Nothing here was disclosed without coordination with the maintainers.
     </p>
 
@@ -93,7 +222,7 @@
     </div>
   </footer>
 
-  <a href="#top" class="to-top" id="to-top" aria-label="Back to top"><span aria-hidden="true">&uarr;</span></a>
+  <a href="#top" class="to-top" id="to-top" aria-label="Back to top" data-en="Back to top" data-pt="Voltar ao topo"><span aria-hidden="true">&uarr;</span></a>
 
   <script>
     (function () {
@@ -104,6 +233,46 @@
         var on = function () { t.classList.toggle('show', window.scrollY > 900); };
         window.addEventListener('scroll', on, { passive: true }); on();
       }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var root    = document.documentElement;
+      var buttons = document.querySelectorAll('.lang-switch [data-lang]');
+      var els     = document.querySelectorAll('[data-en]');
+
+      function applyLang(lang) {
+        var isPt = lang === 'pt';
+        root.setAttribute('lang', isPt ? 'pt-BR' : 'en');
+
+        els.forEach(function (el) {
+          var val = el.dataset[isPt ? 'pt' : 'en'];
+          if (val != null) el.innerHTML = val;
+        });
+
+        document.querySelectorAll('.redacted').forEach(function (el) {
+          var label = isPt ? el.getAttribute('data-pt-aria') : el.getAttribute('data-en-aria');
+          if (label) el.setAttribute('aria-label', label);
+        });
+
+        buttons.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+        });
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('lang'); } catch (e) {}
+
+      applyLang(saved === 'pt' ? 'pt' : 'en');
+
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var lang = b.dataset.lang;
+          try { localStorage.setItem('lang', lang); } catch (e) {}
+          applyLang(lang);
+        });
+      });
     })();
   </script>
 </body>
