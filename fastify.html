@@ -68,8 +68,10 @@
     }
 
     @media (max-width: 420px) {
-      .header-nav .btn-ghost { padding: 8px; gap: 0; font-size: 0; }
+      .header-nav .btn-ghost { padding: 8px; gap: 0; }
+      .header-nav .btn-ghost .btn-text { display: none; }
       .header-nav .btn-ghost svg { width: 16px; height: 16px; }
+      .header-nav .btn-icon { font-size: 16px; line-height: 1; }
     }
 
     .timeline {
@@ -144,7 +146,10 @@
           <button type="button" data-lang="pt" lang="pt-BR" aria-pressed="false">PT</button>
         </div>
 
-        <a href="advisories.html" class="btn-ghost"><span aria-hidden="true">&larr;</span> <span data-en="Advisories" data-pt="Advisórios">Advisories</span></a>
+        <a href="advisories.html" class="btn-ghost" aria-label="Advisories">
+          <span aria-hidden="true" class="btn-icon">&larr;</span>
+          <span class="btn-text" data-en="Advisories" data-pt="Advisórios">Advisories</span>
+        </a>
       </nav>
     </div>
   </header>
