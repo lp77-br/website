@@ -48,7 +48,7 @@
       <h1 class="hero-title" id="hero-title">Advisories <span>&amp; Assessments</span></h1>
       <p class="hero-sub">Every report, coordinated disclosure and authorized assessment in one place. Search or filter by status, type and severity.</p>
       <ul class="stat-row" aria-label="At a glance">
-        <li><strong data-stat="total">3</strong><span>entries</span></li>
+        <li><strong data-stat="total">4</strong><span>entries</span></li>
         <li><strong data-stat="published">1</strong><span>published</span></li>
         <li><strong data-stat="open">2</strong><span>in disclosure</span></li>
       </ul>
@@ -66,7 +66,7 @@
           <span class="kbd" id="kbd" aria-hidden="true">/</span>
           <button type="button" class="search-clear" id="clear" aria-label="Clear search" hidden>&times;</button>
         </div>
-        <div class="filters"><div class="filter-group" role="group" aria-label="Status"><span class="filter-label">Status</span><button type="button" class="fchip" data-group="status" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="published" aria-pressed="false">Published <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="in-progress" aria-pressed="false">In progress <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="awaiting" aria-pressed="false">Awaiting response <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Type"><span class="filter-label">Type</span><button type="button" class="fchip" data-group="type" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="assessment" aria-pressed="false">Assessment <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="disclosure" aria-pressed="false">Disclosure <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Severity"><span class="filter-label">Severity</span><button type="button" class="fchip" data-group="sev" data-value="all" aria-pressed="true">Any <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="critical" aria-pressed="false"><i class="s-crit"></i>Critical <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="high" aria-pressed="false"><i class="s-high"></i>High <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="medium" aria-pressed="false"><i class="s-med"></i>Medium <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="low" aria-pressed="false"><i class="s-low"></i>Low <span class="n"></span></button></div></div>
+        <div class="filters"><div class="filter-group" role="group" aria-label="Status"><span class="filter-label">Status</span><button type="button" class="fchip" data-group="status" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="published" aria-pressed="false">Published <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="in-progress" aria-pressed="false">In progress <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="awaiting" aria-pressed="false">Awaiting response <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="closed" aria-pressed="false">Closed <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Type"><span class="filter-label">Type</span><button type="button" class="fchip" data-group="type" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="assessment" aria-pressed="false">Assessment <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="disclosure" aria-pressed="false">Disclosure <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Severity"><span class="filter-label">Severity</span><button type="button" class="fchip" data-group="sev" data-value="all" aria-pressed="true">Any <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="critical" aria-pressed="false"><i class="s-crit"></i>Critical <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="high" aria-pressed="false"><i class="s-high"></i>High <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="medium" aria-pressed="false"><i class="s-med"></i>Medium <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="low" aria-pressed="false"><i class="s-low"></i>Low <span class="n"></span></button></div></div>
         <div class="toolbar-row">
           <p class="result-count" id="count" aria-live="polite"></p>
           <div class="toolbar-tools">
@@ -104,19 +104,20 @@
           </div>
         </a>
 
-        <article class="card card-static entry" data-status="in-progress" data-type="disclosure" data-sev="" data-year="2026" data-keywords="falcon framework python cve pending private">
+        <article class="card card-static entry" data-status="in-progress" data-type="disclosure" data-sev="high" data-year="2026" data-keywords="falcon framework python cve pending confirmed cvss 7.5 advisory credit">
           <div class="card-header">
             <div class="card-logo"><span class="card-logo-initials">F</span></div>
-            <span class="card-tag card-tag-muted">In progress</span>
+            <span class="card-tag">Confirmed</span>
           </div>
           <div class="card-body">
             <p class="card-subtitle">Coordinated disclosure</p>
             <h3 class="card-title">Falcon 4.4.0 — security report</h3>
-            <p class="card-desc">Multiple vulnerabilities reported privately to the Falcon maintainers. Advisory and CVE pending.</p>
+            <p class="card-desc">Vulnerability reported privately to the Falcon maintainers and confirmed as real. Preliminary CVSS 7.5 (High). The maintainers will publish an advisory crediting the report; CVE ID pending.</p>
+            <div class="card-badges"><span class="badge badge-high">High &middot; 7.5</span></div>
           </div>
           <div class="card-footer">
             <span class="card-date">2026</span>
-            <span class="card-status">Pending CVE</span>
+            <span class="card-status">Awaiting CVE ID</span>
           </div>
         </article>
 
@@ -134,6 +135,24 @@
           <div class="card-footer">
             <span class="card-date">2026</span>
             <span class="card-status">Awaiting response</span>
+          </div>
+        </article>
+
+
+        <article class="card card-static card-closed entry" data-status="closed" data-type="disclosure" data-sev="low" data-year="2026" data-keywords="fastify npm nodejs javascript content-type media type validation serialization schema bypass ghsa not a vulnerability hardening">
+          <div class="card-header">
+            <div class="card-logo"><span class="card-logo-initials">F</span></div>
+            <span class="card-tag card-tag-muted">Closed</span>
+          </div>
+          <div class="card-body">
+            <p class="card-subtitle">Coordinated disclosure</p>
+            <h3 class="card-title">Fastify 5.12.8 — Schema content-type bypass</h3>
+            <p class="card-desc">Body validation and response serialization were silently skipped when a schema content key included media type parameters. Closed by the maintainers as not a vulnerability; the hardening fix is tracked publicly.</p>
+            <div class="card-badges"><span class="badge badge-low">Low</span></div>
+          </div>
+          <div class="card-footer">
+            <span class="card-date">2026</span>
+            <span class="card-status">Not a vulnerability</span>
           </div>
         </article>
 
@@ -243,7 +262,7 @@
     toolbar.hidden = false;
     render();
     var stats = { total: items.length, published: items.filter(function (i) { return i.status === 'published'; }).length };
-    stats.open = stats.total - stats.published;
+    stats.open = items.filter(function (i) { return i.status === 'in-progress' || i.status === 'awaiting'; }).length;
     Object.keys(stats).forEach(function (k) { var el = document.querySelector('[data-stat="' + k + '"]'); if (el) el.textContent = stats[k]; });
   })();
   </script>
