@@ -25,6 +25,68 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
+  <style>
+    /* ---------- Header layout safeguard (idempotente) ---------- */
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ---------- Language switch ---------- */
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      flex: 0 0 auto;
+    }
+
+    .lang-switch button {
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      min-width: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #8b93a7;
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .lang-switch button:hover { color: #cfd6e6; }
+
+    .lang-switch button:focus-visible {
+      outline: 2px solid #7b9dff;
+      outline-offset: 2px;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      background: rgba(123, 157, 255, 0.16);
+      color: #7b9dff;
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 640px) {
+      .header-nav { gap: 8px; }
+      .lang-switch button { padding: 6px 8px; min-width: 30px; font-size: 11px; }
+    }
+
+    @media (max-width: 420px) {
+      .header-nav .btn-ghost { padding: 8px; gap: 0; font-size: 0; }
+      .header-nav .btn-ghost svg { width: 16px; height: 16px; }
+    }
+  </style>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -41,8 +103,8 @@
     "jobTitle": "Offensive Security Researcher",
     "description": "Offensive security researcher specializing in Web and Mobile penetration testing.",
     "knowsAbout": [
-      "Offensive Security", "Penetration Testing", "Web Security", 
-      "Mobile Security", "Android Security", "API Security", "Responsible Disclosure", 
+      "Offensive Security", "Penetration Testing", "Web Security",
+      "Mobile Security", "Android Security", "API Security", "Responsible Disclosure",
       "Authentication Bypass", "ReDoS", "Path Traversal", "Python", "Web Frameworks"
     ]
   }
@@ -50,7 +112,7 @@
 </head>
 <body>
 
-  <a href="#main" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link" data-en="Skip to content" data-pt="Pular para o conteúdo">Skip to content</a>
 
   <header class="site-header">
     <div class="header-inner">
@@ -63,11 +125,17 @@
         </span>
         <div class="brand-text">
           <span>lp77.one</span>
-          <span class="online-status"><span class="dot" aria-hidden="true"></span><span>Offensive Security</span></span>
+          <span class="online-status"><span class="dot" aria-hidden="true"></span><span data-en="Offensive Security" data-pt="Segurança Ofensiva">Offensive Security</span></span>
         </div>
       </a>
       <nav class="header-nav" aria-label="Main navigation">
-        <a href="#reports" class="nav-link">Reports</a>
+        <a href="#reports" class="nav-link" data-en="Reports" data-pt="Relatórios">Reports</a>
+
+        <div class="lang-switch" role="group" aria-label="Language / Idioma">
+          <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="pt" lang="pt-BR" aria-pressed="false">PT</button>
+        </div>
+
         <a href="https://github.com/lp77-br" target="_blank" rel="me noopener noreferrer" class="btn-ghost">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.03c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.71 5.39-5.29 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
           GitHub
@@ -78,23 +146,21 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-inner">
-      <p class="hero-eyebrow">Independent security research</p>
+      <p class="hero-eyebrow" data-en="Independent security research" data-pt="Pesquisa de segurança independente">Independent security research</p>
       <h1 class="hero-title" id="hero-title">Lucas <span>— lp77.br</span></h1>
-      <p class="hero-sub">
-        I find and responsibly disclose vulnerabilities in Web and Mobile
-        apps, frameworks and APIs.
-      </p>
+      <p class="hero-sub" data-en="I find and responsibly disclose vulnerabilities in Web and Mobile apps, frameworks and APIs." data-pt="Encontro e divulgo de forma responsável vulnerabilidades em apps Web e Mobile, frameworks e APIs.">I find and responsibly disclose vulnerabilities in Web and Mobile
+        apps, frameworks and APIs.</p>
       <div class="hero-cta">
-        <a href="astrum.html" class="btn-primary btn-lg">Read the Astrum report <span aria-hidden="true">&rarr;</span></a>
+        <a href="astrum.html" class="btn-primary btn-lg"><span data-en="Read the Astrum report" data-pt="Ler o relatório Astrum">Read the Astrum report</span> <span aria-hidden="true">&rarr;</span></a>
         <a href="https://github.com/lp77-br" target="_blank" rel="me noopener noreferrer" class="btn-ghost btn-lg">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.03c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.71 5.39-5.29 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
           GitHub
         </a>
       </div>
       <ul class="stat-row" aria-label="At a glance">
-        <li><strong>11</strong><span>findings reported</span></li>
-        <li><strong>2</strong><span>critical</span></li>
-        <li><strong>1</strong><span>CVE pending</span></li>
+        <li><strong>11</strong><span data-en="findings reported" data-pt="achados reportados">findings reported</span></li>
+        <li><strong>2</strong><span data-en="critical" data-pt="críticos">critical</span></li>
+        <li><strong>1</strong><span data-en="CVE pending" data-pt="CVE pendente">CVE pending</span></li>
       </ul>
     </div>
   </section>
@@ -102,7 +168,7 @@
   <main class="page-body" id="main">
 
     <section class="section" id="reports" aria-labelledby="advisories-title">
-      <h2 class="section-title" id="advisories-title">Advisories &amp; Assessments</h2>
+      <h2 class="section-title" id="advisories-title" data-en="Advisories &amp; Assessments" data-pt="Advisórios &amp; Avaliações">Advisories &amp; Assessments</h2>
 
       <div class="grid grid-feature">
 
@@ -110,12 +176,12 @@
           <div class="card-main">
             <div class="card-header">
               <div class="card-logo"><span class="card-logo-initials">A</span></div>
-              <span class="card-tag">Report in Portuguese</span>
+              <span class="card-tag" data-en="Report in Portuguese" data-pt="Relatório em Português">Report in Portuguese</span>
             </div>
             <div class="card-body">
-              <p class="card-subtitle">Authorized assessment</p>
-              <h3 class="card-title">Astrum — mobile security report</h3>
-              <p class="card-desc">
+              <p class="card-subtitle" data-en="Authorized assessment" data-pt="Avaliação autorizada">Authorized assessment</p>
+              <h3 class="card-title" data-en="Astrum — mobile security report" data-pt="Astrum — relatório de segurança mobile">Astrum — mobile security report</h3>
+              <p class="card-desc" data-en="11 vulnerabilities in an Android GPS territory game (Supabase backend), including 2 critical IDOR/enumeration flaws, privilege escalation and GPX validation bypasses." data-pt="11 vulnerabilidades em um jogo de território por GPS para Android (backend Supabase), incluindo 2 falhas críticas de IDOR/enumeração, escalonamento de privilégios e bypasses de validação de GPX.">
                 11 vulnerabilities in an Android GPS territory game (Supabase backend),
                 including 2 critical IDOR/enumeration flaws, privilege escalation and
                 GPX validation bypasses.
@@ -123,19 +189,19 @@
             </div>
           </div>
           <div class="card-side">
-            <p class="side-label">Findings by severity</p>
+            <p class="side-label" data-en="Findings by severity" data-pt="Achados por severidade">Findings by severity</p>
             <div class="sev-bar" role="img" aria-label="2 critical, 5 high, 2 medium, 2 low or informational">
               <span class="s-crit"></span><span class="s-high"></span><span class="s-med"></span><span class="s-low"></span>
             </div>
             <ul class="sev-legend">
-              <li><i class="s-crit"></i><b>2</b> Critical</li>
-              <li><i class="s-high"></i><b>5</b> High</li>
-              <li><i class="s-med"></i><b>2</b> Medium</li>
-              <li><i class="s-low"></i><b>2</b> Low / info</li>
+              <li><i class="s-crit"></i><b>2</b> <span data-en="Critical" data-pt="Crítico">Critical</span></li>
+              <li><i class="s-high"></i><b>5</b> <span data-en="High" data-pt="Alto">High</span></li>
+              <li><i class="s-med"></i><b>2</b> <span data-en="Medium" data-pt="Médio">Medium</span></li>
+              <li><i class="s-low"></i><b>2</b> <span data-en="Low / info" data-pt="Baixo / info">Low / info</span></li>
             </ul>
             <div class="card-footer">
               <span class="card-date">2026</span>
-              <span class="card-status card-status-link">Read report <span aria-hidden="true">&rarr;</span></span>
+              <span class="card-status card-status-link"><span data-en="Read report" data-pt="Ler relatório">Read report</span> <span aria-hidden="true">&rarr;</span></span>
             </div>
           </div>
         </a>
@@ -143,57 +209,56 @@
         <article class="card card-static">
           <div class="card-header">
             <div class="card-logo"><span class="card-logo-initials">F</span></div>
-            <span class="card-tag card-tag-muted">In progress</span>
+            <span class="card-tag card-tag-muted" data-en="In progress" data-pt="Em andamento">In progress</span>
           </div>
           <div class="card-body">
-            <p class="card-subtitle">Coordinated disclosure</p>
-            <h3 class="card-title">Falcon 4.4.0 — security report</h3>
-            <p class="card-desc">
+            <p class="card-subtitle" data-en="Coordinated disclosure" data-pt="Divulgação coordenada">Coordinated disclosure</p>
+            <h3 class="card-title" data-en="Falcon 4.4.0 — security report" data-pt="Falcon 4.4.0 — relatório de segurança">Falcon 4.4.0 — security report</h3>
+            <p class="card-desc" data-en="Multiple vulnerabilities reported privately to the Falcon maintainers. Advisory and CVE pending." data-pt="Múltiplas vulnerabilidades reportadas de forma privada aos mantenedores do Falcon. Advisório e CVE pendentes.">
               Multiple vulnerabilities reported privately to the Falcon
               maintainers. Advisory and CVE pending.
             </p>
           </div>
           <div class="card-footer">
             <span class="card-date">2026</span>
-            <span class="card-status">Pending CVE</span>
+            <span class="card-status" data-en="Pending CVE" data-pt="CVE pendente">Pending CVE</span>
           </div>
         </article>
 
         <article class="card card-static card-ghost" aria-label="Report awaiting response">
           <div class="card-header">
             <div class="card-logo"><span class="card-logo-initials">A</span></div>
-            <span class="card-tag card-tag-muted">Private report</span>
+            <span class="card-tag card-tag-muted" data-en="Private report" data-pt="Relatório privado">Private report</span>
           </div>
           <div class="card-body">
-            <p class="card-subtitle">Coordinated disclosure</p>
-            <h3 class="card-title">ASGI Framework — security report</h3>
-            <p class="card-desc">
+            <p class="card-subtitle" data-en="Coordinated disclosure" data-pt="Divulgação coordenada">Coordinated disclosure</p>
+            <h3 class="card-title" data-en="ASGI Framework — security report" data-pt="ASGI Framework — relatório de segurança">ASGI Framework — security report</h3>
+            <p class="card-desc" data-en="High-severity vulnerability reported privately to the maintainers involving session handling and cache mechanisms. Currently awaiting initial response and triage." data-pt="Vulnerabilidade de alta severidade reportada de forma privada aos mantenedores envolvendo manuseio de sessão e mecanismos de cache. Atualmente aguardando resposta inicial e triagem.">
               High-severity vulnerability reported privately to the maintainers involving session handling and cache mechanisms. Currently awaiting initial response and triage.
             </p>
           </div>
           <div class="card-footer">
             <span class="card-date">2026</span>
-            <span class="card-status">Awaiting response</span>
+            <span class="card-status" data-en="Awaiting response" data-pt="Aguardando resposta">Awaiting response</span>
           </div>
         </article>
 
       </div>
       <div class="hero-cta" style="justify-content:flex-start;margin-top:20px">
-        <a href="advisories.html" class="btn-ghost">Browse, search &amp; filter all entries <span aria-hidden="true">&rarr;</span></a>
+        <a href="advisories.html" class="btn-ghost"><span data-en="Browse, search &amp; filter all entries" data-pt="Navegar, buscar &amp; filtrar todas as entradas">Browse, search &amp; filter all entries</span> <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <p class="fine">Entries appear here once the maintainer publishes the advisory or authorizes public portfolio use.</p>
+      <p class="fine" data-en="Entries appear here once the maintainer publishes the advisory or authorizes public portfolio use." data-pt="Entradas aparecem aqui após o mantenedor publicar o aviso ou autorizar o uso público no portfólio.">Entries appear here once the maintainer publishes the advisory or authorizes public portfolio use.</p>
     </section>
 
     <section class="section aka" aria-labelledby="identity-title">
-      <h2 class="section-title" id="identity-title">Also known as</h2>
-      <p class="prose">
-        Published online as <strong>lp77</strong>, <strong>lp77.br</strong>,
+      <h2 class="section-title" id="identity-title" data-en="Also known as" data-pt="Também conhecido como">Also known as</h2>
+      <p class="prose" data-en="Published online as &lt;strong&gt;lp77&lt;/strong&gt;, &lt;strong&gt;lp77.br&lt;/strong&gt;, &lt;strong&gt;lp77-br&lt;/strong&gt; and &lt;strong&gt;lp77br&lt;/strong&gt;. References to &lt;strong&gt;ip77&lt;/strong&gt; or &lt;strong&gt;IP77&lt;/strong&gt; are a common misreading of &ldquo;lp77&rdquo; (lowercase L vs. uppercase i) &mdash; all refer to the same person." data-pt="Publicado online como &lt;strong&gt;lp77&lt;/strong&gt;, &lt;strong&gt;lp77.br&lt;/strong&gt;, &lt;strong&gt;lp77-br&lt;/strong&gt; e &lt;strong&gt;lp77br&lt;/strong&gt;. Referências a &lt;strong&gt;ip77&lt;/strong&gt; ou &lt;strong&gt;IP77&lt;/strong&gt; são uma leitura incorreta comum de &ldquo;lp77&rdquo; (L minúsculo vs. i maiúsculo) &mdash; todos se referem à mesma pessoa.">Published online as <strong>lp77</strong>, <strong>lp77.br</strong>,
         <strong>lp77-br</strong> and <strong>lp77br</strong>. References to
         <strong>ip77</strong> or <strong>IP77</strong> are a common misreading of
         &ldquo;lp77&rdquo; (lowercase L vs. uppercase i) &mdash; all refer to the same person.
       </p>
       <details class="aliases">
-        <summary>Show all spellings</summary>
+        <summary data-en="Show all spellings" data-pt="Mostrar todas as grafias">Show all spellings</summary>
         <div class="chip-bar" aria-label="Known aliases">
           <span class="chip">lp77</span><span class="chip">LP77</span><span class="chip">lp77.br</span>
           <span class="chip">LP77.BR</span><span class="chip">lp77-br</span><span class="chip">lp77br</span>
@@ -216,6 +281,42 @@
     (function () {
       var y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var root    = document.documentElement;
+      var buttons = document.querySelectorAll('.lang-switch [data-lang]');
+      var els     = document.querySelectorAll('[data-en]');
+
+      function applyLang(lang) {
+        var isPt = lang === 'pt';
+        root.setAttribute('lang', isPt ? 'pt-BR' : 'en');
+
+        els.forEach(function (el) {
+          var val = el.dataset[isPt ? 'pt' : 'en'];
+          if (val != null) el.innerHTML = val;
+        });
+
+        buttons.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+        });
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('lang'); } catch (e) {}
+
+      // Padrão: inglês. Só vira PT se o usuário escolheu antes.
+      applyLang(saved === 'pt' ? 'pt' : 'en');
+
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var lang = b.dataset.lang;
+          try { localStorage.setItem('lang', lang); } catch (e) {}
+          applyLang(lang);
+        });
+      });
     })();
   </script>
 </body>
