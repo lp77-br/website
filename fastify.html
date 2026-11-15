@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="author" content="Lucas (lp77.br)">
+  <meta name="description" content="Independent discovery of a schema content-type bypass in Fastify 5.12.8. Closed by maintainers as not a vulnerability, with a public hardening fix tracked.">
+  <title>Fastify 5.12.8 — Lucas (lp77.br)</title>
+  <link rel="canonical" href="https://www.lp77.one/fastify.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      flex: 0 0 auto;
+    }
+
+    .lang-switch button {
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      min-width: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #8b93a7;
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .lang-switch button:hover { color: #cfd6e6; }
+
+    .lang-switch button:focus-visible {
+      outline: 2px solid #7b9dff;
+      outline-offset: 2px;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      background: rgba(123, 157, 255, 0.16);
+      color: #7b9dff;
+    }
+
+    @media (max-width: 640px) {
+      .header-nav { gap: 8px; }
+      .lang-switch button { padding: 6px 8px; min-width: 30px; font-size: 11px; }
+    }
+
+    @media (max-width: 420px) {
+      .header-nav .btn-ghost { padding: 8px; gap: 0; font-size: 0; }
+      .header-nav .btn-ghost svg { width: 16px; height: 16px; }
+    }
+
+    .timeline {
+      list-style: none;
+      margin: 0 0 28px;
+      padding: 0;
+      counter-reset: step;
+    }
+
+    .timeline li {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      column-gap: 20px;
+      row-gap: 4px;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    }
+
+    .timeline li:last-child {
+      border-bottom: 0;
+    }
+
+    .timeline .t-date {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--text-3, #8b93a7);
+      white-space: nowrap;
+    }
+
+    .timeline .t-text {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-1, #e6e9f0);
+    }
+
+    @media (max-width: 560px) {
+      .timeline li {
+        grid-template-columns: 1fr;
+        padding: 12px 0;
+      }
+
+      .timeline .t-date {
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <a href="#main" class="skip-link" data-en="Skip to content" data-pt="Pular para o conteúdo">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo" aria-label="lp77.one — home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(123,157,255,0.12)" stroke="#7b9dff" stroke-width="1.4"/>
+            <path d="M8.5 9.5 6 12l2.5 2.5M15.5 9.5 18 12l-2.5 2.5M13.5 8l-3 8" stroke="#7b9dff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <span>lp77.one</span>
+          <span class="online-status"><span class="dot" aria-hidden="true"></span><span data-en="Offensive Security" data-pt="Segurança Ofensiva">Offensive Security</span></span>
+        </div>
+      </a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma">
+          <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="pt" lang="pt-BR" aria-pressed="false">PT</button>
+        </div>
+
+        <a href="advisories.html" class="btn-ghost"><span aria-hidden="true">&larr;</span> <span data-en="Advisories" data-pt="Advisórios">Advisories</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="report-container" id="main">
+
+    <p class="card-subtitle" style="margin-bottom: 12px;" data-en="Coordinated disclosure" data-pt="Divulgação coordenada">Coordinated disclosure</p>
+    <h1>Fastify 5.12.8 — Schema content-type bypass</h1>
+    <p class="report-meta-line" data-en="Independently discovered. Closed by maintainers as not a vulnerability; a public hardening fix is tracked." data-pt="Descoberto de forma independente. Fechado pelos mantenedores como não-vulnerabilidade; uma correção pública de hardening está em andamento.">
+      Independently discovered. Closed by maintainers as not a vulnerability; a public hardening fix is tracked.
+    </p>
+
+    <div class="finding-status">
+      <strong data-en="Status: Closed (Not a Vulnerability)." data-pt="Status: Fechado (Não é vulnerabilidade).">Status: Closed (Not a Vulnerability).</strong>
+      <span data-en="Maintainer @mcollina confirmed the technical accuracy but classified the behavior as expected per the framework's threat model. A correctness/hardening fix (PR #6969) is being tracked publicly." data-pt="O mantenedor @mcollina confirmou a precisão técnica, mas classificou o comportamento como esperado pelo threat model do framework. Uma correção de hardening (PR #6969) está sendo acompanhada publicamente.">Maintainer @mcollina confirmed the technical accuracy but classified the behavior as expected per the framework's threat model. A correctness/hardening fix (PR #6969) is being tracked publicly.</span>
+    </div>
+
+    <h2 data-en="Overview" data-pt="Visão geral">Overview</h2>
+    <div class="table-wrap"><table>
+      <tr><th data-en="Field" data-pt="Campo">Field</th><th data-en="Value" data-pt="Valor">Value</th></tr>
+      <tr><td data-en="Target" data-pt="Alvo">Target</td><td data-en="Fastify (Node.js web framework), version 5.12.8" data-pt="Fastify (framework web Node.js), versão 5.12.8">Fastify (Node.js web framework), version 5.12.8</td></tr>
+      <tr><td data-en="Reporter" data-pt="Pesquisador">Reporter</td><td data-en="Lucas (lp77.br)" data-pt="Lucas (lp77.br)">Lucas (lp77.br)</td></tr>
+      <tr><td data-en="Advisory ID" data-pt="ID do Avisório">Advisory ID</td><td><code>GHSA-33h7-gp7m-5p5q</code></td></tr>
+      <tr><td data-en="Status" data-pt="Status">Status</td><td data-en="Closed by maintainers" data-pt="Fechado pelos mantenedores">Closed by maintainers</td></tr>
+      <tr><td data-en="Severity" data-pt="Severidade">Severity</td><td><span class="badge badge-low" data-en="Low" data-pt="Baixa">Low</span> <span data-en="CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N" data-pt="CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N">CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N</span></td></tr>
+      <tr><td>CWE</td><td>CWE-20, CWE-697</td></tr>
+      <tr><td data-en="Resolution" data-pt="Resolução">Resolution</td><td data-en="Hardening fix tracked in public PR #6969" data-pt="Correção de hardening acompanhada no PR público #6969">Hardening fix tracked in public PR #6969</td></tr>
+    </table></div>
+
+    <h2 data-en="Timeline" data-pt="Linha do tempo">Timeline</h2>
+    <ol class="timeline">
+      <li><span class="t-date" data-en="Nov 13, 2026" data-pt="13/11/2026">Nov 13, 2026</span><span class="t-text" data-en="Reported via GitHub Security Advisory (GHSA-33h7-gp7m-5p5q)." data-pt="Reportado via GitHub Security Advisory (GHSA-33h7-gp7m-5p5q).">Reported via GitHub Security Advisory (GHSA-33h7-gp7m-5p5q).</span></li>
+      <li><span class="t-date" data-en="Nov 13, 2026" data-pt="13/11/2026">Nov 13, 2026</span><span class="t-text" data-en="Maintainer @mcollina acknowledged the analysis, reproduced the issue, and closed it as not a vulnerability." data-pt="O mantenedor @mcollina reconheceu a análise, reproduziu o problema e o fechou como não-vulnerabilidade.">Maintainer @mcollina acknowledged the analysis, reproduced the issue, and closed it as not a vulnerability.</span></li>
+      <li class="is-pending"><span class="t-date" data-en="Pending" data-pt="Pendente">Pending</span><span class="t-text" data-en="Hardening fix merged and included in a future release (PR #6969)." data-pt="Correção de hardening mesclada e incluída em uma versão futura (PR #6969).">Hardening fix merged and included in a future release (PR #6969).</span></li>
+    </ol>
+
+    <h2 data-en="Summary" data-pt="Resumo">Summary</h2>
+    <p data-en="When a route's <code>schema.body.content</code> or <code>schema.response[code].content</code> key includes media type parameters (e.g., <code>application/json; charset=utf-8</code>), Fastify accepts and compiles the schema but never applies it. Request body validation and response serialization are silently skipped." data-pt="Quando a chave <code>schema.body.content</code> ou <code>schema.response[code].content</code> de uma rota inclui parâmetros de media type (ex: <code>application/json; charset=utf-8</code>), o Fastify aceita e compila o schema, mas nunca o aplica. A validação do corpo da requisição e a serialização da resposta são silenciosamente ignoradas.">
+      When a route's <code>schema.body.content</code> or <code>schema.response[code].content</code> key includes media type parameters (e.g., <code>application/json; charset=utf-8</code>), Fastify accepts and compiles the schema but never applies it. Request body validation and response serialization are silently skipped.
+    </p>
+
+    <h2 data-en="Technical details" data-pt="Detalhes técnicos">Technical details</h2>
+    <p data-en="Fastify stores content keys exactly as written during schema compilation, but at request time, it looks up the parsed media type only (parameters stripped). Thus, the keys never match." data-pt="O Fastify armazena as chaves de conteúdo exatamente como escritas durante a compilação do schema, mas no momento da requisição, ele busca apenas o media type parseado (sem parâmetros). Assim, as chaves nunca coincidem.">
+      Fastify stores content keys exactly as written during schema compilation, but at request time, it looks up the parsed media type only (parameters stripped). Thus, the keys never match.
+    </p>
+    <p data-en="The maintainers noted that this has been reported and closed several times before (e.g., GHSA-26rh-p642-7f35, GHSA-j2xv-r62g-hmmh). The trigger is the developer's schema configuration, which their threat model treats as trusted. In v6 (main), response fallback is removed, failing closed with <code>FST_ERR_MISSING_CONTENTTYPE_SERIALIZATION_FN</code>. For v5, the workaround is to use the bare essence media type (e.g., <code>application/json</code>)." data-pt="Os mantenedores observaram que isso já foi reportado e fechado várias vezes antes (ex: GHSA-26rh-p642-7f35, GHSA-j2xv-r62g-hmmh). O gatilho é a configuração do schema do próprio desenvolvedor, que o threat model deles trata como confiável. Na v6 (main), o fallback de resposta é removido, falhando de forma fechada com <code>FST_ERR_MISSING_CONTENTTYPE_SERIALIZATION_FN</code>. Para a v5, o workaround é usar o media type base (ex: <code>application/json</code>).">
+      The maintainers noted that this has been reported and closed several times before (e.g., GHSA-26rh-p642-7f35, GHSA-j2xv-r62g-hmmh). The trigger is the developer's schema configuration, which their threat model treats as trusted. In v6 (main), response fallback is removed, failing closed with <code>FST_ERR_MISSING_CONTENTTYPE_SERIALIZATION_FN</code>. For v5, the workaround is to use the bare essence media type (e.g., <code>application/json</code>).
+    </p>
+
+    <h2 data-en="Impact & Resolution" data-pt="Impacto & Resolução">Impact & Resolution</h2>
+    <p data-en="Applications relying on the schema as their only validation boundary may receive unexpected input, and fields outside the schema may be returned to clients. While closed as not a vulnerability (since it requires developer misconfiguration), the lack of a startup warning was acknowledged as a 'footgun'. The maintainers are adding this case to the non-vulnerabilities list in SECURITY.md." data-pt="Aplicações que dependem do schema como sua única barreira de validação podem receber entradas inesperadas, e campos fora do schema podem ser retornados aos clientes. Embora tenha sido fechado como não-vulnerabilidade (já que requer má configuração do desenvolvedor), a falta de um aviso na inicialização foi reconhecida como um 'footgun'. Os mantenedores estão adicionando este caso à lista de não-vulnerabilidades no SECURITY.md.">
+      Applications relying on the schema as their only validation boundary may receive unexpected input, and fields outside the schema may be returned to clients. While closed as not a vulnerability (since it requires developer misconfiguration), the lack of a startup warning was acknowledged as a 'footgun'. The maintainers are adding this case to the non-vulnerabilities list in SECURITY.md.
+    </p>
+
+    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-3); font-style: italic;" data-en="This finding was discovered independently and reported responsibly. No data was compromised. The maintainers' classification is respected." data-pt="Este achado foi descoberto independentemente e reportado de forma responsável. Nenhum dado foi comprometido. A classificação dos mantenedores é respeitada.">
+      This finding was discovered independently and reported responsibly. No data was compromised. The maintainers' classification is respected.
+    </p>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; <span id="year">2026</span> Lucas · www.lp77.one</p>
+    </div>
+  </footer>
+
+  <a href="#top" class="to-top" id="to-top" aria-label="Back to top" data-en="Back to top" data-pt="Voltar ao topo"><span aria-hidden="true">&uarr;</span></a>
+
+  <script>
+    (function () {
+      var y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+      var t = document.getElementById('to-top');
+      if (t) {
+        var on = function () { t.classList.toggle('show', window.scrollY > 900); };
+        window.addEventListener('scroll', on, { passive: true }); on();
+      }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var root    = document.documentElement;
+      var buttons = document.querySelectorAll('.lang-switch [data-lang]');
+      var els     = document.querySelectorAll('[data-en]');
+
+      function applyLang(lang) {
+        var isPt = lang === 'pt';
+        root.setAttribute('lang', isPt ? 'pt-BR' : 'en');
+
+        els.forEach(function (el) {
+          var val = el.dataset[isPt ? 'pt' : 'en'];
+          if (val != null) el.innerHTML = val;
+        });
+
+        buttons.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+        });
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('lang'); } catch (e) {}
+
+      applyLang(saved === 'pt' ? 'pt' : 'en');
+
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var lang = b.dataset.lang;
+          try { localStorage.setItem('lang', lang); } catch (e) {}
+          applyLang(lang);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
