@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="author" content="Lucas (lp77.br)">
+  <meta name="description" content="All security advisories, coordinated disclosures and authorized assessments by Lucas (lp77.br / lp77 / ip77) — searchable and filterable by status, type and severity.">
+  <title>Advisories &amp; Assessments — Lucas (lp77.br)</title>
+  <link rel="canonical" href="https://www.lp77.one/advisories.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Advisories &amp; Assessments — Lucas (lp77.br)">
+  <meta property="og:description" content="Vulnerability reports, coordinated disclosures and authorized assessments by Lucas (lp77.br).">
+  <meta property="og:url" content="https://www.lp77.one/advisories.html">
+  <meta property="og:site_name" content="lp77.one">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo" aria-label="lp77.one — home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(123,157,255,0.12)" stroke="#7b9dff" stroke-width="1.4"/>
+            <path d="M8.5 9.5 6 12l2.5 2.5M15.5 9.5 18 12l-2.5 2.5M13.5 8l-3 8" stroke="#7b9dff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <span>lp77.one</span>
+          <span class="online-status"><span class="dot" aria-hidden="true"></span><span>Offensive Security</span></span>
+        </div>
+      </a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="/" class="btn-ghost"><span aria-hidden="true">&larr;</span> Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero hero-compact" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Independent security research</p>
+      <h1 class="hero-title" id="hero-title">Advisories <span>&amp; Assessments</span></h1>
+      <p class="hero-sub">Every report, coordinated disclosure and authorized assessment in one place. Search or filter by status, type and severity.</p>
+      <ul class="stat-row" aria-label="At a glance">
+        <li><strong data-stat="total">3</strong><span>entries</span></li>
+        <li><strong data-stat="published">1</strong><span>published</span></li>
+        <li><strong data-stat="open">2</strong><span>in disclosure</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <main class="page-body" id="main">
+    <section class="section" aria-labelledby="entries-title">
+      <h2 class="section-title" id="entries-title">All entries</h2>
+
+      <div class="toolbar" id="toolbar" hidden>
+        <div class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="q" placeholder="Search by name, keyword or status" aria-label="Search advisories" autocomplete="off" spellcheck="false" enterkeyhint="search">
+          <span class="kbd" id="kbd" aria-hidden="true">/</span>
+          <button type="button" class="search-clear" id="clear" aria-label="Clear search" hidden>&times;</button>
+        </div>
+        <div class="filters"><div class="filter-group" role="group" aria-label="Status"><span class="filter-label">Status</span><button type="button" class="fchip" data-group="status" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="published" aria-pressed="false">Published <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="in-progress" aria-pressed="false">In progress <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="awaiting" aria-pressed="false">Awaiting response <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Type"><span class="filter-label">Type</span><button type="button" class="fchip" data-group="type" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="assessment" aria-pressed="false">Assessment <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="disclosure" aria-pressed="false">Disclosure <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Severity"><span class="filter-label">Severity</span><button type="button" class="fchip" data-group="sev" data-value="all" aria-pressed="true">Any <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="critical" aria-pressed="false"><i class="s-crit"></i>Critical <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="high" aria-pressed="false"><i class="s-high"></i>High <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="medium" aria-pressed="false"><i class="s-med"></i>Medium <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="low" aria-pressed="false"><i class="s-low"></i>Low <span class="n"></span></button></div></div>
+        <div class="toolbar-row">
+          <p class="result-count" id="count" aria-live="polite"></p>
+          <div class="toolbar-tools">
+            <label class="sort">Sort
+              <select id="sort">
+                <option value="newest">Newest first</option>
+                <option value="severity">Highest severity</option>
+                <option value="az">Name A&ndash;Z</option>
+              </select>
+            </label>
+            <button type="button" class="btn-action" id="reset" hidden>Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" id="entries">
+
+        <a href="astrum.html" class="card card-live entry" data-status="published" data-type="assessment" data-sev="critical high medium low" data-year="2026" data-keywords="astrum android gps supabase idor privilege escalation gpx mobile portuguese">
+          <div class="card-header">
+            <div class="card-logo"><span class="card-logo-initials">A</span></div>
+            <span class="card-tag">Report in Portuguese</span>
+          </div>
+          <div class="card-body">
+            <p class="card-subtitle">Authorized assessment</p>
+            <h3 class="card-title">Astrum — mobile security report</h3>
+            <p class="card-desc">11 vulnerabilities in an Android GPS territory game (Supabase backend), including 2 critical IDOR/enumeration flaws, privilege escalation and GPX validation bypasses.</p>
+            <div class="sev-bar" role="img" aria-label="2 critical, 5 high, 2 medium, 2 low or informational"><span class="s-crit"></span><span class="s-high"></span><span class="s-med"></span><span class="s-low"></span></div>
+            <div class="card-badges">
+              <span class="badge badge-critical">2 Critical</span><span class="badge badge-high">5 High</span><span class="badge badge-medium">2 Medium</span><span class="badge badge-low">2 Low / info</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-date">2026</span>
+            <span class="card-status card-status-link">Read report <span aria-hidden="true">&rarr;</span></span>
+          </div>
+        </a>
+
+        <article class="card card-static entry" data-status="in-progress" data-type="disclosure" data-sev="" data-year="2026" data-keywords="falcon framework python cve pending private">
+          <div class="card-header">
+            <div class="card-logo"><span class="card-logo-initials">F</span></div>
+            <span class="card-tag card-tag-muted">In progress</span>
+          </div>
+          <div class="card-body">
+            <p class="card-subtitle">Coordinated disclosure</p>
+            <h3 class="card-title">Falcon 4.4.0 — security report</h3>
+            <p class="card-desc">Multiple vulnerabilities reported privately to the Falcon maintainers. Advisory and CVE pending.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-date">2026</span>
+            <span class="card-status">Pending CVE</span>
+          </div>
+        </article>
+
+        <article class="card card-static card-ghost entry" data-status="awaiting" data-type="disclosure" data-sev="high" data-year="2026" data-keywords="asgi framework session cache triage private">
+          <div class="card-header">
+            <div class="card-logo"><span class="card-logo-initials">A</span></div>
+            <span class="card-tag card-tag-muted">Private report</span>
+          </div>
+          <div class="card-body">
+            <p class="card-subtitle">Coordinated disclosure</p>
+            <h3 class="card-title">ASGI Framework — security report</h3>
+            <p class="card-desc">High-severity vulnerability reported privately to the maintainers involving session handling and cache mechanisms. Currently awaiting initial response and triage.</p>
+            <div class="card-badges"><span class="badge badge-high">High</span></div>
+          </div>
+          <div class="card-footer">
+            <span class="card-date">2026</span>
+            <span class="card-status">Awaiting response</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="empty" id="empty" hidden>
+        <strong>No entries match your search</strong>
+        Try a different keyword or clear the filters.
+        <div><button type="button" class="btn-action" id="reset2">Reset filters</button></div>
+      </div>
+
+      <p class="fine">Entries appear here once the maintainer publishes the advisory or authorizes public portfolio use.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; <span id="year">2026</span> Lucas · www.lp77.one</p>
+      <p><a href="https://github.com/lp77-br" target="_blank" rel="me noopener">github.com/lp77-br</a></p>
+    </div>
+  </footer>
+
+  <a href="#top" class="to-top" id="to-top" aria-label="Back to top"><span aria-hidden="true">&uarr;</span></a>
+
+  <script>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var y = $('year'); if (y) y.textContent = new Date().getFullYear();
+    var t = $('to-top');
+    if (t) { var on = function () { t.classList.toggle('show', window.scrollY > 900); }; window.addEventListener('scroll', on, { passive: true }); on(); }
+
+    var list = $('entries'), toolbar = $('toolbar'), input = $('q');
+    var RANK = { critical: 4, high: 3, medium: 2, low: 1 };
+    var items = [].slice.call(list.querySelectorAll('.entry')).map(function (el, i) {
+      var sev = (el.dataset.sev || '').split(/\s+/).filter(Boolean);
+      return {
+        el: el, i: i, status: el.dataset.status, type: el.dataset.type, sev: sev,
+        date: el.dataset.date || el.dataset.year || '',
+        title: el.querySelector('.card-title').textContent.toLowerCase(),
+        hay: (el.textContent + ' ' + (el.dataset.keywords || '')).toLowerCase().replace(/\s+/g, ' '),
+        rank: Math.max.apply(null, sev.map(function (s) { return RANK[s] || 0; }).concat(0))
+      };
+    });
+    var chips = [].slice.call(document.querySelectorAll('.fchip'));
+    var DEF = { q: '', status: 'all', type: 'all', sev: 'all', sort: 'newest' };
+    var state = Object.assign({}, DEF), applied = 'newest';
+    var GROUPS = ['status', 'type', 'sev'];
+
+    function has(it, g, v) { return v === 'all' || (g === 'sev' ? it.sev.indexOf(v) > -1 : it[g] === v); }
+    function match(it, skip, tokens) {
+      for (var k = 0; k < GROUPS.length; k++) { var g = GROUPS[k]; if (g !== skip && !has(it, g, state[g])) return false; }
+      return tokens.every(function (tk) { return it.hay.indexOf(tk) > -1; });
+    }
+    var SORT = {
+      newest: function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : a.i - b.i; },
+      severity: function (a, b) { return b.rank - a.rank || SORT.newest(a, b); },
+      az: function (a, b) { return a.title < b.title ? -1 : a.title > b.title ? 1 : 0; }
+    };
+
+    function render() {
+      var tokens = state.q.toLowerCase().split(/\s+/).filter(Boolean), shown = 0;
+      items.forEach(function (it) { var ok = match(it, null, tokens); it.el.hidden = !ok; if (ok) shown++; });
+      if (applied !== state.sort) { items.slice().sort(SORT[state.sort]).forEach(function (it) { list.appendChild(it.el); }); applied = state.sort; }
+      chips.forEach(function (c) {
+        var g = c.dataset.group, v = c.dataset.value;
+        var n = items.filter(function (it) { return match(it, g, tokens) && has(it, g, v); }).length;
+        c.querySelector('.n').textContent = n;
+        c.classList.toggle('is-zero', n === 0);
+        c.setAttribute('aria-pressed', String(state[g] === v));
+      });
+      $('count').innerHTML = 'Showing <b>' + shown + '</b> of <b>' + items.length + '</b> entries';
+      $('empty').hidden = shown !== 0;
+      var dirty = state.q !== '' || GROUPS.some(function (g) { return state[g] !== 'all'; });
+      $('reset').hidden = !dirty;
+      $('clear').hidden = !state.q; $('kbd').hidden = !!state.q;
+      $('sort').value = state.sort;
+      var p = new URLSearchParams();
+      Object.keys(DEF).forEach(function (k) { if (state[k] !== DEF[k]) p.set(k, state[k]); });
+      var qs = p.toString();
+      try { history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash); } catch (e) {}
+    }
+    function reset() { GROUPS.forEach(function (g) { state[g] = 'all'; }); state.q = ''; input.value = ''; render(); }
+
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var g = c.dataset.group; state[g] = (state[g] === c.dataset.value) ? 'all' : c.dataset.value; render();
+      });
+    });
+    input.addEventListener('input', function () { state.q = input.value.trim(); render(); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { if (input.value) { input.value = ''; state.q = ''; render(); } else input.blur(); }
+    });
+    $('clear').addEventListener('click', function () { input.value = ''; state.q = ''; render(); input.focus(); });
+    $('sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
+    $('reset').addEventListener('click', reset); $('reset2').addEventListener('click', reset);
+    document.addEventListener('keydown', function (e) {
+      var tag = (e.target.tagName || '').toLowerCase();
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey && tag !== 'input' && tag !== 'select' && tag !== 'textarea') { e.preventDefault(); input.focus(); }
+    });
+
+    var p = new URLSearchParams(location.search);
+    Object.keys(DEF).forEach(function (k) {
+      var v = p.get(k); if (!v) return;
+      if (k === 'q' || (k === 'sort' && SORT[v]) || chips.some(function (c) { return c.dataset.group === k && c.dataset.value === v; })) state[k] = v;
+    });
+    input.value = state.q;
+    toolbar.hidden = false;
+    render();
+    var stats = { total: items.length, published: items.filter(function (i) { return i.status === 'published'; }).length };
+    stats.open = stats.total - stats.published;
+    Object.keys(stats).forEach(function (k) { var el = document.querySelector('[data-stat="' + k + '"]'); if (el) el.textContent = stats[k]; });
+  })();
+  </script>
+</body>
+</html>
