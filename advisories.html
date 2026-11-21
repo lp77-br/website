@@ -17,14 +17,79 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-nav .btn-ghost svg {
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      flex: 0 0 auto;
+    }
+
+    .lang-switch button {
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      min-width: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #8b93a7;
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .lang-switch button:hover { color: #cfd6e6; }
+
+    .lang-switch button:focus-visible {
+      outline: 2px solid #7b9dff;
+      outline-offset: 2px;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      background: rgba(123, 157, 255, 0.16);
+      color: #7b9dff;
+    }
+
+    @media (max-width: 640px) {
+      .header-nav { gap: 8px; }
+      .lang-switch button { padding: 6px 8px; min-width: 30px; font-size: 11px; }
+    }
+
+    @media (max-width: 420px) {
+      .header-nav .btn-ghost { padding: 8px; gap: 0; font-size: 0; }
+      .header-nav .btn-ghost svg { width: 16px; height: 16px; }
+    }
+
+    .to-top svg { display: block; }
+  </style>
 </head>
 <body id="top">
 
-  <a href="#main" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link" data-en="Skip to content" data-pt="Pular para o conteúdo">Skip to content</a>
 
   <header class="site-header">
     <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="lp77.one — home">
+      <a href="/" class="site-logo" aria-label="lp77.one — home" data-en-aria="lp77.one — home" data-pt-aria="lp77.one — início">
         <span class="logo-mark" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(123,157,255,0.12)" stroke="#7b9dff" stroke-width="1.4"/>
@@ -33,51 +98,85 @@
         </span>
         <div class="brand-text">
           <span>lp77.one</span>
-          <span class="online-status"><span class="dot" aria-hidden="true"></span><span>Offensive Security</span></span>
+          <span class="online-status"><span class="dot" aria-hidden="true"></span><span data-en="Offensive Security" data-pt="Segurança Ofensiva">Offensive Security</span></span>
         </div>
       </a>
-      <nav class="header-nav" aria-label="Main navigation">
-        <a href="/" class="btn-ghost"><span aria-hidden="true">&larr;</span> Home</a>
+      <nav class="header-nav" aria-label="Main navigation" data-en-aria="Main navigation" data-pt-aria="Navegação principal">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma">
+          <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="pt" lang="pt-BR" aria-pressed="false">PT</button>
+        </div>
+
+        <a href="/" class="btn-ghost">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M19 12H5"/>
+            <path d="M12 19l-7-7 7-7"/>
+          </svg>
+          <span data-en="Home" data-pt="Início">Home</span>
+        </a>
       </nav>
     </div>
   </header>
 
   <section class="hero hero-compact" aria-labelledby="hero-title">
     <div class="hero-inner">
-      <p class="hero-eyebrow">Independent security research</p>
-      <h1 class="hero-title" id="hero-title">Advisories <span>&amp; Assessments</span></h1>
-      <p class="hero-sub">Every report, coordinated disclosure and authorized assessment in one place. Search or filter by status, type and severity.</p>
-      <ul class="stat-row" aria-label="At a glance">
-        <li><strong data-stat="total">4</strong><span>entries</span></li>
-        <li><strong data-stat="published">1</strong><span>published</span></li>
-        <li><strong data-stat="open">2</strong><span>in disclosure</span></li>
+      <p class="hero-eyebrow" data-en="Independent security research" data-pt="Pesquisa de segurança independente">Independent security research</p>
+      <h1 class="hero-title" id="hero-title" data-en="Advisories &amp; Assessments" data-pt="Advisórios e Avaliações">Advisories <span>&amp; Assessments</span></h1>
+      <p class="hero-sub" data-en="Every report, coordinated disclosure and authorized assessment in one place. Search or filter by status, type and severity." data-pt="Todo reporte, divulgação coordenada e avaliação autorizada em um só lugar. Busque ou filtre por status, tipo e severidade.">Every report, coordinated disclosure and authorized assessment in one place. Search or filter by status, type and severity.</p>
+      <ul class="stat-row" aria-label="At a glance" data-en-aria="At a glance" data-pt-aria="Visão geral">
+        <li><strong data-stat="total">4</strong><span data-en="entries" data-pt="entradas">entries</span></li>
+        <li><strong data-stat="published">1</strong><span data-en="published" data-pt="publicados">published</span></li>
+        <li><strong data-stat="open">2</strong><span data-en="in disclosure" data-pt="em divulgação">in disclosure</span></li>
       </ul>
     </div>
   </section>
 
   <main class="page-body" id="main">
     <section class="section" aria-labelledby="entries-title">
-      <h2 class="section-title" id="entries-title">All entries</h2>
+      <h2 class="section-title" id="entries-title" data-en="All entries" data-pt="Todas as entradas">All entries</h2>
 
       <div class="toolbar" id="toolbar" hidden>
         <div class="search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          <input type="search" id="q" placeholder="Search by name, keyword or status" aria-label="Search advisories" autocomplete="off" spellcheck="false" enterkeyhint="search">
+          <input type="search" id="q" placeholder="Search by name, keyword or status" aria-label="Search advisories" data-en-aria="Search advisories" data-pt-aria="Buscar avisórios" data-en-placeholder="Search by name, keyword or status" data-pt-placeholder="Buscar por nome, palavra-chave ou status" autocomplete="off" spellcheck="false" enterkeyhint="search">
           <span class="kbd" id="kbd" aria-hidden="true">/</span>
-          <button type="button" class="search-clear" id="clear" aria-label="Clear search" hidden>&times;</button>
+          <button type="button" class="search-clear" id="clear" aria-label="Clear search" data-en-aria="Clear search" data-pt-aria="Limpar busca" hidden>&times;</button>
         </div>
-        <div class="filters"><div class="filter-group" role="group" aria-label="Status"><span class="filter-label">Status</span><button type="button" class="fchip" data-group="status" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="published" aria-pressed="false">Published <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="in-progress" aria-pressed="false">In progress <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="awaiting" aria-pressed="false">Awaiting response <span class="n"></span></button><button type="button" class="fchip" data-group="status" data-value="closed" aria-pressed="false">Closed <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Type"><span class="filter-label">Type</span><button type="button" class="fchip" data-group="type" data-value="all" aria-pressed="true">All <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="assessment" aria-pressed="false">Assessment <span class="n"></span></button><button type="button" class="fchip" data-group="type" data-value="disclosure" aria-pressed="false">Disclosure <span class="n"></span></button></div><div class="filter-group" role="group" aria-label="Severity"><span class="filter-label">Severity</span><button type="button" class="fchip" data-group="sev" data-value="all" aria-pressed="true">Any <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="critical" aria-pressed="false"><i class="s-crit"></i>Critical <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="high" aria-pressed="false"><i class="s-high"></i>High <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="medium" aria-pressed="false"><i class="s-med"></i>Medium <span class="n"></span></button><button type="button" class="fchip" data-group="sev" data-value="low" aria-pressed="false"><i class="s-low"></i>Low <span class="n"></span></button></div></div>
+        <div class="filters">
+          <div class="filter-group" role="group" aria-label="Status" data-en-aria="Status" data-pt-aria="Status">
+            <span class="filter-label" data-en="Status" data-pt="Status">Status</span>
+            <button type="button" class="fchip" data-group="status" data-value="all" aria-pressed="true"><span data-en="All" data-pt="Todos">All</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="status" data-value="published" aria-pressed="false"><span data-en="Published" data-pt="Publicado">Published</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="status" data-value="in-progress" aria-pressed="false"><span data-en="In progress" data-pt="Em andamento">In progress</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="status" data-value="awaiting" aria-pressed="false"><span data-en="Awaiting response" data-pt="Aguardando resposta">Awaiting response</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="status" data-value="closed" aria-pressed="false"><span data-en="Closed" data-pt="Fechado">Closed</span> <span class="n"></span></button>
+          </div>
+          <div class="filter-group" role="group" aria-label="Type" data-en-aria="Type" data-pt-aria="Tipo">
+            <span class="filter-label" data-en="Type" data-pt="Tipo">Type</span>
+            <button type="button" class="fchip" data-group="type" data-value="all" aria-pressed="true"><span data-en="All" data-pt="Todos">All</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="type" data-value="assessment" aria-pressed="false"><span data-en="Assessment" data-pt="Avaliação">Assessment</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="type" data-value="disclosure" aria-pressed="false"><span data-en="Disclosure" data-pt="Divulgação">Disclosure</span> <span class="n"></span></button>
+          </div>
+          <div class="filter-group" role="group" aria-label="Severity" data-en-aria="Severity" data-pt-aria="Severidade">
+            <span class="filter-label" data-en="Severity" data-pt="Severidade">Severity</span>
+            <button type="button" class="fchip" data-group="sev" data-value="all" aria-pressed="true"><span data-en="Any" data-pt="Qualquer">Any</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="sev" data-value="critical" aria-pressed="false"><i class="s-crit"></i><span data-en="Critical" data-pt="Crítica">Critical</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="sev" data-value="high" aria-pressed="false"><i class="s-high"></i><span data-en="High" data-pt="Alta">High</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="sev" data-value="medium" aria-pressed="false"><i class="s-med"></i><span data-en="Medium" data-pt="Média">Medium</span> <span class="n"></span></button>
+            <button type="button" class="fchip" data-group="sev" data-value="low" aria-pressed="false"><i class="s-low"></i><span data-en="Low" data-pt="Baixa">Low</span> <span class="n"></span></button>
+          </div>
+        </div>
         <div class="toolbar-row">
           <p class="result-count" id="count" aria-live="polite"></p>
           <div class="toolbar-tools">
-            <label class="sort">Sort
+            <label class="sort"><span data-en="Sort" data-pt="Ordenar">Sort</span>
               <select id="sort">
-                <option value="newest">Newest first</option>
-                <option value="severity">Highest severity</option>
-                <option value="az">Name A&ndash;Z</option>
+                <option value="newest" data-en="Newest first" data-pt="Mais recentes primeiro">Newest first</option>
+                <option value="severity" data-en="Highest severity" data-pt="Maior severidade">Highest severity</option>
+                <option value="az" data-en="Name A&ndash;Z" data-pt="Nome A&ndash;Z">Name A&ndash;Z</option>
               </select>
             </label>
-            <button type="button" class="btn-action" id="reset" hidden>Reset</button>
+            <button type="button" class="btn-action" id="reset" data-en="Reset" data-pt="Limpar" hidden>Reset</button>
           </div>
         </div>
       </div>
@@ -87,84 +186,83 @@
         <a href="astrum.html" class="card card-live entry" data-status="published" data-type="assessment" data-sev="critical high medium low" data-year="2026" data-keywords="astrum android gps supabase idor privilege escalation gpx mobile portuguese">
           <div class="card-header">
             <div class="card-logo"><span class="card-logo-initials">A</span></div>
-            <span class="card-tag">Report in Portuguese</span>
+            <span class="card-tag" data-en="Report in Portuguese" data-pt="Relatório em português">Report in Portuguese</span>
           </div>
           <div class="card-body">
-            <p class="card-subtitle">Authorized assessment</p>
-            <h3 class="card-title">Astrum — mobile security report</h3>
-            <p class="card-desc">11 vulnerabilities in an Android GPS territory game (Supabase backend), including 2 critical IDOR/enumeration flaws, privilege escalation and GPX validation bypasses.</p>
-            <div class="sev-bar" role="img" aria-label="2 critical, 5 high, 2 medium, 2 low or informational"><span class="s-crit"></span><span class="s-high"></span><span class="s-med"></span><span class="s-low"></span></div>
+            <p class="card-subtitle" data-en="Authorized assessment" data-pt="Avaliação autorizada">Authorized assessment</p>
+            <h3 class="card-title" data-en="Astrum — mobile security report" data-pt="Astrum — relatório de segurança mobile">Astrum — mobile security report</h3>
+            <p class="card-desc" data-en="11 vulnerabilities in an Android GPS territory game (Supabase backend), including 2 critical IDOR/enumeration flaws, privilege escalation and GPX validation bypasses." data-pt="11 vulnerabilidades em um jogo Android de território via GPS (backend Supabase), incluindo 2 falhas críticas de IDOR/enumeração, escalonamento de privilégios e bypass de validação de GPX.">11 vulnerabilities in an Android GPS territory game (Supabase backend), including 2 critical IDOR/enumeration flaws, privilege escalation and GPX validation bypasses.</p>
+            <div class="sev-bar" role="img" aria-label="2 critical, 5 high, 2 medium, 2 low or informational" data-en-aria="2 critical, 5 high, 2 medium, 2 low or informational" data-pt-aria="2 críticas, 5 altas, 2 médias, 2 baixas ou informativas"><span class="s-crit"></span><span class="s-high"></span><span class="s-med"></span><span class="s-low"></span></div>
             <div class="card-badges">
-              <span class="badge badge-critical">2 Critical</span><span class="badge badge-high">5 High</span><span class="badge badge-medium">2 Medium</span><span class="badge badge-low">2 Low / info</span>
+              <span class="badge badge-critical" data-en="2 Critical" data-pt="2 Críticas">2 Critical</span><span class="badge badge-high" data-en="5 High" data-pt="5 Altas">5 High</span><span class="badge badge-medium" data-en="2 Medium" data-pt="2 Médias">2 Medium</span><span class="badge badge-low" data-en="2 Low / info" data-pt="2 Baixas / info">2 Low / info</span>
             </div>
           </div>
           <div class="card-footer">
             <span class="card-date">2026</span>
-            <span class="card-status card-status-link">Read report <span aria-hidden="true">&rarr;</span></span>
+            <span class="card-status card-status-link"><span data-en="Read report" data-pt="Ler relatório">Read report</span> <span aria-hidden="true">&rarr;</span></span>
           </div>
         </a>
 
         <a href="falcon.html" class="card entry" data-status="in-progress" data-type="disclosure" data-sev="high" data-year="2026" data-keywords="falcon framework python cve pending confirmed cvss 7.5 advisory credit">
           <div class="card-header">
             <div class="card-logo"><span class="card-logo-initials">F</span></div>
-            <span class="card-tag">Confirmed</span>
+            <span class="card-tag" data-en="Confirmed" data-pt="Confirmado">Confirmed</span>
           </div>
           <div class="card-body">
-            <p class="card-subtitle">Coordinated disclosure</p>
-            <h3 class="card-title">Falcon 4.4.0 — security report</h3>
-            <p class="card-desc">Vulnerability reported privately to the Falcon maintainers and confirmed as real. Preliminary CVSS 7.5 (High). The maintainers will publish an advisory crediting the report; CVE ID pending.</p>
-            <div class="card-badges"><span class="badge badge-high">High &middot; 7.5</span></div>
+            <p class="card-subtitle" data-en="Coordinated disclosure" data-pt="Divulgação coordenada">Coordinated disclosure</p>
+            <h3 class="card-title" data-en="Falcon 4.4.0 — security report" data-pt="Falcon 4.4.0 — relatório de segurança">Falcon 4.4.0 — security report</h3>
+            <p class="card-desc" data-en="Vulnerability reported privately to the Falcon maintainers and confirmed as real. Preliminary CVSS 7.5 (High). The maintainers will publish an advisory crediting the report; CVE ID pending." data-pt="Vulnerabilidade reportada de forma privada aos mantenedores do Falcon e confirmada como real. CVSS preliminar 7.5 (Alta). Os mantenedores publicarão um avisório creditando o reporte; ID de CVE pendente.">Vulnerability reported privately to the Falcon maintainers and confirmed as real. Preliminary CVSS 7.5 (High). The maintainers will publish an advisory crediting the report; CVE ID pending.</p>
+            <div class="card-badges"><span class="badge badge-high" data-en="High &middot; 7.5" data-pt="Alta &middot; 7.5">High &middot; 7.5</span></div>
           </div>
           <div class="card-footer">
             <span class="card-date">2026</span>
-            <span class="card-status card-status-link">Status &amp; timeline <span aria-hidden="true">&rarr;</span></span>
+            <span class="card-status card-status-link"><span data-en="Status &amp; timeline" data-pt="Status e cronologia">Status &amp; timeline</span> <span aria-hidden="true">&rarr;</span></span>
           </div>
         </a>
 
         <article class="card card-static card-ghost entry" data-status="awaiting" data-type="disclosure" data-sev="high" data-year="2026" data-keywords="asgi framework session cache triage private">
           <div class="card-header">
             <div class="card-logo"><span class="card-logo-initials">A</span></div>
-            <span class="card-tag card-tag-muted">Private report</span>
+            <span class="card-tag card-tag-muted" data-en="Private report" data-pt="Relatório privado">Private report</span>
           </div>
           <div class="card-body">
-            <p class="card-subtitle">Coordinated disclosure</p>
-            <h3 class="card-title">ASGI Framework — security report</h3>
-            <p class="card-desc">High-severity vulnerability reported privately to the maintainers involving session handling and cache mechanisms. Currently awaiting initial response and triage.</p>
-            <div class="card-badges"><span class="badge badge-high">High</span></div>
+            <p class="card-subtitle" data-en="Coordinated disclosure" data-pt="Divulgação coordenada">Coordinated disclosure</p>
+            <h3 class="card-title" data-en="ASGI Framework — security report" data-pt="ASGI Framework — relatório de segurança">ASGI Framework — security report</h3>
+            <p class="card-desc" data-en="High-severity vulnerability reported privately to the maintainers involving session handling and cache mechanisms. Currently awaiting initial response and triage." data-pt="Vulnerabilidade de alta severidade reportada de forma privada aos mantenedores, envolvendo manuseio de sessão e mecanismos de cache. Atualmente aguardando resposta inicial e triagem.">High-severity vulnerability reported privately to the maintainers involving session handling and cache mechanisms. Currently awaiting initial response and triage.</p>
+            <div class="card-badges"><span class="badge badge-high" data-en="High" data-pt="Alta">High</span></div>
           </div>
           <div class="card-footer">
             <span class="card-date">2026</span>
-            <span class="card-status">Awaiting response</span>
+            <span class="card-status" data-en="Awaiting response" data-pt="Aguardando resposta">Awaiting response</span>
           </div>
         </article>
-
 
         <article class="card card-static card-closed entry" data-status="closed" data-type="disclosure" data-sev="low" data-year="2026" data-keywords="fastify npm nodejs javascript content-type media type validation serialization schema bypass ghsa not a vulnerability hardening">
           <div class="card-header">
             <div class="card-logo"><span class="card-logo-initials">F</span></div>
-            <span class="card-tag card-tag-muted">Closed</span>
+            <span class="card-tag card-tag-muted" data-en="Closed" data-pt="Fechado">Closed</span>
           </div>
           <div class="card-body">
-            <p class="card-subtitle">Coordinated disclosure</p>
-            <h3 class="card-title">Fastify 5.12.8 — Schema content-type bypass</h3>
-            <p class="card-desc">Body validation and response serialization were silently skipped when a schema content key included media type parameters. Closed by the maintainers as not a vulnerability; the hardening fix is tracked publicly.</p>
-            <div class="card-badges"><span class="badge badge-low">Low</span></div>
+            <p class="card-subtitle" data-en="Coordinated disclosure" data-pt="Divulgação coordenada">Coordinated disclosure</p>
+            <h3 class="card-title" data-en="Fastify 5.12.8 — Schema content-type bypass" data-pt="Fastify 5.12.8 — bypass de content-type no schema">Fastify 5.12.8 — Schema content-type bypass</h3>
+            <p class="card-desc" data-en="Body validation and response serialization were silently skipped when a schema content key included media type parameters. Closed by the maintainers as not a vulnerability; the hardening fix is tracked publicly." data-pt="A validação de corpo e a serialização de resposta eram silenciosamente ignoradas quando uma chave de conteúdo do schema incluía parâmetros de media type. Fechado pelos mantenedores como não sendo uma vulnerabilidade; a correção de hardening está rastreada publicamente.">Body validation and response serialization were silently skipped when a schema content key included media type parameters. Closed by the maintainers as not a vulnerability; the hardening fix is tracked publicly.</p>
+            <div class="card-badges"><span class="badge badge-low" data-en="Low" data-pt="Baixa">Low</span></div>
           </div>
           <div class="card-footer">
             <span class="card-date">2026</span>
-            <span class="card-status">Not a vulnerability</span>
+            <span class="card-status" data-en="Not a vulnerability" data-pt="Não é uma vulnerabilidade">Not a vulnerability</span>
           </div>
         </article>
 
       </div>
 
       <div class="empty" id="empty" hidden>
-        <strong>No entries match your search</strong>
-        Try a different keyword or clear the filters.
-        <div><button type="button" class="btn-action" id="reset2">Reset filters</button></div>
+        <strong data-en="No entries match your search" data-pt="Nenhuma entrada corresponde à busca">No entries match your search</strong>
+        <span data-en="Try a different keyword or clear the filters." data-pt="Tente outra palavra-chave ou limpe os filtros.">Try a different keyword or clear the filters.</span>
+        <div><button type="button" class="btn-action" id="reset2" data-en="Reset filters" data-pt="Limpar filtros">Reset filters</button></div>
       </div>
 
-      <p class="fine">Entries appear here once the maintainer publishes the advisory or authorizes public portfolio use.</p>
+      <p class="fine" data-en="Entries appear here once the maintainer publishes the advisory or authorizes public portfolio use." data-pt="As entradas aparecem aqui quando o mantenedor publica o avisório ou autoriza o uso público no portfólio.">Entries appear here once the maintainer publishes the advisory or authorizes public portfolio use.</p>
     </section>
   </main>
 
@@ -175,7 +273,12 @@
     </div>
   </footer>
 
-  <a href="#top" class="to-top" id="to-top" aria-label="Back to top"><span aria-hidden="true">&uarr;</span></a>
+  <a href="#top" class="to-top" id="to-top" aria-label="Back to top" data-en-aria="Back to top" data-pt-aria="Voltar ao topo">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 19V5"/>
+      <path d="M5 12l7-7 7 7"/>
+    </svg>
+  </a>
 
   <script>
   (function () {
@@ -200,6 +303,19 @@
     var DEF = { q: '', status: 'all', type: 'all', sev: 'all', sort: 'newest' };
     var state = Object.assign({}, DEF), applied = 'newest';
     var GROUPS = ['status', 'type', 'sev'];
+    var LANG = 'en';
+
+    var I18N = {
+      en: { showing: function (n, t) { return 'Showing <b>' + n + '</b> of <b>' + t + '</b> entries'; } },
+      pt: { showing: function (n, t) { return 'Mostrando <b>' + n + '</b> de <b>' + t + '</b> entradas'; } }
+    };
+
+    function refreshItems() {
+      items.forEach(function (it) {
+        it.title = it.el.querySelector('.card-title').textContent.toLowerCase();
+        it.hay = (it.el.textContent + ' ' + (it.el.dataset.keywords || '')).toLowerCase().replace(/\s+/g, ' ');
+      });
+    }
 
     function has(it, g, v) { return v === 'all' || (g === 'sev' ? it.sev.indexOf(v) > -1 : it[g] === v); }
     function match(it, skip, tokens) {
@@ -223,7 +339,7 @@
         c.classList.toggle('is-zero', n === 0);
         c.setAttribute('aria-pressed', String(state[g] === v));
       });
-      $('count').innerHTML = 'Showing <b>' + shown + '</b> of <b>' + items.length + '</b> entries';
+      $('count').innerHTML = I18N[LANG].showing(shown, items.length);
       $('empty').hidden = shown !== 0;
       var dirty = state.q !== '' || GROUPS.some(function (g) { return state[g] !== 'all'; });
       $('reset').hidden = !dirty;
@@ -234,6 +350,32 @@
       var qs = p.toString();
       try { history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash); } catch (e) {}
     }
+
+    function applyLang(lang) {
+      LANG = lang;
+      var isPt = lang === 'pt';
+      document.documentElement.setAttribute('lang', isPt ? 'pt-BR' : 'en');
+
+      document.querySelectorAll('[data-en]').forEach(function (el) {
+        var val = el.dataset[isPt ? 'pt' : 'en'];
+        if (val != null) el.innerHTML = val;
+      });
+      document.querySelectorAll('[data-en-aria]').forEach(function (el) {
+        var label = isPt ? el.getAttribute('data-pt-aria') : el.getAttribute('data-en-aria');
+        if (label) el.setAttribute('aria-label', label);
+      });
+      document.querySelectorAll('[data-en-placeholder]').forEach(function (el) {
+        var ph = isPt ? el.getAttribute('data-pt-placeholder') : el.getAttribute('data-en-placeholder');
+        if (ph) el.setAttribute('placeholder', ph);
+      });
+      document.querySelectorAll('.lang-switch [data-lang]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+      });
+
+      refreshItems();
+      render();
+    }
+
     function reset() { GROUPS.forEach(function (g) { state[g] = 'all'; }); state.q = ''; input.value = ''; render(); }
 
     chips.forEach(function (c) {
@@ -264,6 +406,18 @@
     var stats = { total: items.length, published: items.filter(function (i) { return i.status === 'published'; }).length };
     stats.open = items.filter(function (i) { return i.status === 'in-progress' || i.status === 'awaiting'; }).length;
     Object.keys(stats).forEach(function (k) { var el = document.querySelector('[data-stat="' + k + '"]'); if (el) el.textContent = stats[k]; });
+
+    var langBtns = document.querySelectorAll('.lang-switch [data-lang]');
+    var saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    applyLang(saved === 'pt' ? 'pt' : 'en');
+
+    langBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        try { localStorage.setItem('lang', b.dataset.lang); } catch (e) {}
+        applyLang(b.dataset.lang);
+      });
+    });
   })();
   </script>
 </body>
