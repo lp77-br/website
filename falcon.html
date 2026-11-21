@@ -21,6 +21,11 @@
       gap: 12px;
     }
 
+    .header-nav .btn-ghost svg {
+      flex: 0 0 auto;
+      display: block;
+    }
+
     .lang-switch {
       display: inline-flex;
       align-items: center;
@@ -128,6 +133,8 @@
         text-transform: uppercase;
       }
     }
+
+    .to-top svg { display: block; }
   </style>
 </head>
 <body id="top">
@@ -154,7 +161,13 @@
           <button type="button" data-lang="pt" lang="pt-BR" aria-pressed="false">PT</button>
         </div>
 
-        <a href="advisories.html" class="btn-ghost"><span aria-hidden="true">&larr;</span> <span data-en="Advisories" data-pt="Advisórios">Advisories</span></a>
+        <a href="advisories.html" class="btn-ghost">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M19 12H5"/>
+            <path d="M12 19l-7-7 7-7"/>
+          </svg>
+          <span data-en="Advisories" data-pt="Advisórios">Advisories</span>
+        </a>
       </nav>
     </div>
   </header>
@@ -222,7 +235,12 @@
     </div>
   </footer>
 
-  <a href="#top" class="to-top" id="to-top" aria-label="Back to top" data-en="Back to top" data-pt="Voltar ao topo"><span aria-hidden="true">&uarr;</span></a>
+  <a href="#top" class="to-top" id="to-top" aria-label="Back to top" data-en-aria="Back to top" data-pt-aria="Voltar ao topo">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 19V5"/>
+      <path d="M5 12l7-7 7 7"/>
+    </svg>
+  </a>
 
   <script>
     (function () {
@@ -251,7 +269,7 @@
           if (val != null) el.innerHTML = val;
         });
 
-        document.querySelectorAll('.redacted').forEach(function (el) {
+        document.querySelectorAll('[data-en-aria]').forEach(function (el) {
           var label = isPt ? el.getAttribute('data-pt-aria') : el.getAttribute('data-en-aria');
           if (label) el.setAttribute('aria-label', label);
         });
